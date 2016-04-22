@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>create_zhuxingtu</title>
+
+</head>
+<!--<style>-->
+    <!--html-->
+    <!--{-->
+        <!--background: #fff;-->
+        <!--font-size:100%;-->
+        <!--font-family:  Helvetica,Verdana ,新宋体, Sans-Serif;-->
+        <!--margin: 0;-->
+        <!--padding: 0;-->
+        <!--border:0;-->
+        <!--height:100%;-->
+        <!--max-height:100%;-->
+        <!--overflow:hidden;-->
+    <!--}-->
+    <!--body-->
+    <!--{-->
+        <!--height:100%;-->
+        <!--max-height:100%;-->
+        <!--overflow:hidden;-->
+        <!--background:#eee;-->
+        <!--padding:0px;-->
+        <!--margin:0px;-->
+        <!--border:0px;-->
+    <!--}-->
+<!--</style>-->
+
+    <body  >
+<div id="body"   align="center" style="width: 100%;">
+<br><br><br>
+
+
+<form  align="center" action="http://songcheck.paohaile.com:8030/zhuxingtu" method="post" class="messages">
+    <div class="messlist">
+        <label>热身tempo：</label><input name="reshen" type="text"  style="width:500px;" placeholder="1-2首">
+        <label>颜色：</label><input type="color" name="color1" style="width:50px;" value="#C2C2C2">
+    </div><br>
+    <div class="messlist">
+        <label>提速tempo：</label><input name="tisu" type="text"  style="width:500px" placeholder="上升阶段">
+        <label>颜色：</label><input type="color" name="color2" style="width:50px;" value="#676767">
+    </div><br>
+    <div class="messlist">
+        <label>降速tempo：</label><input name="jiangsu" type="text" style="width:500px"  placeholder="下降阶段">
+        <label>颜色：</label><input type="color" name="color3" style="width:50px;" value="#3a3a3a">
+    </div><br>
+    <div class="messlist">
+        <label>舒展tempo：</label><input name="shuzhan" type="text"   style="width:500px" placeholder="1-2两首">
+        <label>颜色：</label><input type="color" name="color4" style="width:50px;" value="#C2C2C2">
+    </div><br>
+    <div class="messsub">
+        <input type="submit" value="提交" style="background:#00a3eb;color:#fff;width:100px;height:30px" size="500" >
+        <input type="reset" value="重填" size="500" style="width:100px;height:30px">
+    </div>
+</form>
+
+<br>
+<br>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:500px;width:900px" ></div>
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    // 使用
+    require(
+            [
+                'echarts',
+                 'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                option = {
+                    backgroundColor: '#EBEBEB',
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: [ 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            splitLine:{
+                                show:false
+                            },
+                            data : function(){
+                                var serie=[];
+                                var aa = "{{index}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            splitLine:{
+                                show:false
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'song',
+                            type:'bar',
+                            barMaxWidth:25,
+                            data:function(){
+                                var serie=[];
+                                var aa = "{{tempo}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }(),
+                            itemStyle: {
+                                normal: {
+                                    color: function(params) {
+                                        // build a color map as your need.
+                                        var colorList =  function(){
+                                            var serie=[];
+                                            var aa = "{{color}}".split(",");
+                                            for( var i=0;i < aa.length;i++){
+                                                serie.push(aa[i]);
+                                            };
+                                            return serie;
+                                        }();
+                                        return colorList[params.dataIndex]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                };
+
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+    );
+    
+
+</script>
+</div>
+</body>

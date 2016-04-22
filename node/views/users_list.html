@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link
+	href="http://s2.music.126.net/s/2/core.css?ae14f1474c34ab5f63ebbd0b191853d3"
+	type="text/css" rel="stylesheet">
+<link
+	href="http://s2.music.126.net/s/2/pt_frame.css?55bf38a08df8bdd3cd15fb8529bb237a"
+	type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div id="m-playlist" class="g-bd4 f-cb">
+		<div class="g-mn4">
+			<div class="g-mn4c">
+				<div class="g-wrap6">
+					<div class="m-info f-cb">
+						<div class="cover u-cover u-cover-dj">
+							<img
+								src="http://p3.music.126.net/zwVS7DI_X0y1yhObWWz0Sw==/6652045349717340.jpg?param=200y200"
+								class="j-img"
+								data-src="http://p4.music.126.net/zwVS7DI_X0y1yhObWWz0Sw==/6652045349717340.jpg">
+							<span class="msk"></span>
+						</div>
+						<div class="cnt">
+							<div class="cntc">
+								<div class="hd f-cb">
+									<div class="tit">
+										<h2 id="currentTime" class="f-ff2 f-brk"></h2>
+									</div>
+								</div>
+								<p id="album-desc-more" class="intr f-brk"
+									style="font-size: 18px; color: black;">
+									选择日期：<input id="selectedTime" type="date" /><br><br>
+									今日使用总次数：{{dataout["countNum"]}}<br><br>
+									大于10min的次数：{{dataout["realcount2Num"]}}<br><br>
+									大于10min的次数：{{dataout["realcountNum"]}}<br>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="n-songtb">
+						<div class="u-title u-title-1 f-cb">
+							<h3>
+								<span class="f-ff2">用户列表</span>
+							</h3>
+						</div>
+						<div id="song-list-pre-cache" data-key="track_playlist-152235296">
+							<div id="auto-id-blEpMfFOsWSEEUQ7">
+								<div class="j-flag" id="auto-id-3pxUtMQ1So68I2iL">
+									<table class="m-table ">
+										<thead>
+											<tr>
+												<th class="first w1"><div class="wp">&nbsp;</div></th>
+												<th><div class="wp">用户编号</div></th>
+												<th class="w2"><div class="wp">使用次数</div></th>
+												<th class="w4"><div class="wp">大于10min的次数</div></th>
+												<th class="w4"><div class="wp">大于20min的次数</div></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for user in dataout["userlists"] %}
+											<tr class="even">
+												<td class="left"><div class="hd ">
+														<span class="num">{{user.index}}</span>
+													</div></td>
+												<td class=""><div class="f-cb">
+														<div class="tt">
+															<div class="ttc">
+																<span class="txt"><a
+																	href="http://songcheck.paohaile.com:8030/user_log?{{user.user}}&all"><b
+																		title="{{user.user}}">{{user.user}}</b></a></span>
+															</div>
+														</div>
+													</div></td>
+												<td class=""><div class="text" title="{{user.count}}">
+														<span title="{{user.count}}">{{user.count}}</span>
+													</div></td>
+												<td class=""><div class="text"
+														title="{{user.real2count}}">
+														<span title="{{user.real2count}}">{{user.real2count}}</span>
+													</div></td>
+												<td class=""><div class="text"
+														title="{{user.realcount}}">
+														<span title="{{user.realcount}}">{{user.realcount}}</span>
+													</div></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+								<div class="j-flag"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var query = location.search.substring(1);
+    var selectedTime=query.split("&")[0];
+    
+    document.getElementById("selectedTime").value=formatDate(new Date(parseInt(selectedTime)));
+    document.getElementById("currentTime").innerHTML=formatDate(new Date(parseInt(selectedTime)))+'用户使用情况';
+    
+    function formatDate(time) {
+    	var year=time.getFullYear();     
+        var month=formatNum(time.getMonth()+1);
+        var day=formatNum(time.getDate());
+        return year+"-"+month+"-"+day;     
+   }
+    
+    function formatNum(num){
+    	return  num=num.toString().length==1?'0'+num:num.toString();
+    }
+	</script>
+</body>
+</html>

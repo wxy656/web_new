@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>day_symmary</title>
+</head>
+<body>
+
+<label for="time_start">开始时间：</label><input id="time_start" type="date" style="width: 150px;"/>
+<label for="time_end">结束时间：</label><input id="time_end" type="date" style="width: 150px;"/>
+<input type="button" onclick="browseDayChart()" value="按日查询"/>
+设备<select id="device" onchange=" browseElment('device');">
+    <option value="">请选择</option>
+    <option value="all">所有设备</option>
+    <option value="android">android</option>
+    <option value="ios">ios</option>
+</select>
+
+电台还是歌单<select id="type_" onchange="browseElment('type_');">
+    <option value="">请选择</option>
+    <option value="all">所有类型</option>
+    <option value="radio">电台</option>
+    <option value="songlist">歌单</option>
+
+</select>
+
+<br/>
+<br>
+<br>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px"></div>
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+
+    // 使用
+    require(
+            [
+                'echarts',
+                 'echarts/chart/bar',
+                'echarts/chart/line'// 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar','stack']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    legend: {
+                        data:['日活数','大于20min的用户数','10-20min的用户数',"小于10min的用户数",'20min以上占比','10-20min占比','10min以下占比','log日活比']
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data :function(){
+                                var serie=[];
+                                var aa = "{{datelist}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            name : '数量',
+                            axisLabel : {
+                                formatter: '{value} 个'
+                            }
+                        },
+                        {
+                            type : 'value',
+                            name : '占比',
+                            axisLabel : {
+                                formatter: '{value} %'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'日活数',
+                            type:'bar',
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{rihuo}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+
+                        },
+                        {
+                            name:'大于20min的用户数',
+                            type:'bar',
+                            stack: '用户',
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{gte20}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+
+                        },
+                        {
+                            name:'10-20min的用户数',
+                            type:'bar',
+                            stack: '用户',
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{bte10_20}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+
+                        },
+                        {
+                            name:'小于10min的用户数',
+                            type:'bar',
+                            stack: '用户',
+                            data:function(){
+                                var serie=[];
+                                var aa =  "{{lt10}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+
+                        },
+                        {
+                            name:'log日活比',
+                            type:'line',
+                            yAxisIndex:1,
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{rihuozhanbi}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        },
+                        {
+                            name:'20min以上占比',
+                            type:'line',
+                            yAxisIndex:1,
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{gte20_zhanbi}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        },
+                        {
+                            name:'10-20min占比',
+                            type:'line',
+                            yAxisIndex:1,
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{bte10_20_zhanbi}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        },
+                        {
+                            name:'10min以下占比',
+                            type:'line',
+                            yAxisIndex:1,
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{lt10_zhanbi}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        },
+                    ]
+                };
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                
+                var ecConfig = require('echarts/config');
+                
+                myChart.on(ecConfig.EVENT.CLICK, function (param) {
+                	var chartDate=param.name;
+					var canshu=window.location.search;
+					console.info(canshu)
+//					if (canshu=="?today"){
+//					    var zhouqi="&day" ;
+//					 }else{
+//					    if (canshu.split("&")[2]=="day"){
+//						 var zhouqi="&day"  ;
+//						 }else{
+//						 var zhouqi="&week" ;}
+//					  };
+//					  console.info(zhouqi)
+                    var zhouqi="&day"
+                	window.location.href="http://songcheck.paohaile.com:8030/users_list?"+ new Date(chartDate).getTime().toString()+zhouqi;
+                });
+            }
+    );
+    
+    var query = location.search.substring(1);
+
+    var startTime=convertJson(query)["time_start"];
+    var endTime=convertJson(query)["time_end"];
+
+    document.getElementById("time_start").value=formatDate(new Date(parseInt(startTime)));
+    document.getElementById("time_end").value=formatDate(new Date(parseInt(endTime)));
+    document.getElementById("device").value=convertJson(query)["device"]
+    document.getElementById("type_").value=convertJson(query)["type_"]
+
+    function formatDate(time) {
+    	var year=time.getFullYear();
+        var month=formatNum(time.getMonth()+1);
+        var day=formatNum(time.getDate());
+        return year+"-"+month+"-"+day;
+   }
+    function formatNum(num){
+    	return  num=num.toString().length==1?'0'+num:num.toString();
+    }
+    function convertJson(query){
+        var queryList=query.split("&");
+        var temp={}
+        for (var i=0;i<queryList.length;i++){
+            temp[queryList[i].split("=")[0]]=queryList[i].split("=")[1]
+        }
+        return temp
+    }
+
+    function createUrl (query,field,field_value ){
+       console.log(query)
+        var queryList=query.split("&")
+        var temp={}
+        for (var i=0;i<queryList.length;i++){
+            temp[queryList[i].split("=")[0]]=queryList[i].split("=")[1]
+        }
+        temp[field]=field_value
+
+        let queryOut=""
+        for (var elment in temp){
+            if  (["device","type_","time_start","time_end"].indexOf(elment) !=-1){
+                queryOut=queryOut+elment+"="+temp[elment]+"&"
+            }
+
+        }
+        queryOut=queryOut.substring(0,queryOut.length-1);
+        return queryOut
+
+    }
+    
+    function browseDayChart() {
+        var chartStart = document.getElementById("time_start").value.replace(/-/g, '/');
+        var chartEnd = document.getElementById("time_end").value.replace(/-/g, '/');
+        var query = location.search.substring(1);
+        query = createUrl(query, "time_start", new Date(chartStart).getTime())
+        query = createUrl(query, "time_end", new Date(chartEnd).getTime())
+        window.location.href = "http://songcheck.paohaile.com:8040/day_summary?" + query;
+    }
+
+    function browseElment(elment) {
+        var query = location.search.substring(1);
+        var elment_value = document.getElementById(elment).value;
+        if ( elment_value != '') {
+            window.location.href = "http://songcheck.paohaile.com:8040/day_summary?"+createUrl (query,elment,elment_value)
+        }
+    }
+
+
+    
+
+</script>
+</body>

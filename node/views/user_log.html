@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link
+	href="http://s2.music.126.net/s/2/core.css?ae14f1474c34ab5f63ebbd0b191853d3"
+	type="text/css" rel="stylesheet">
+<link
+	href="http://s2.music.126.net/s/2/pt_frame.css?55bf38a08df8bdd3cd15fb8529bb237a"
+	type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div id="m-playlist" class="g-bd4 f-cb">
+		<div class="g-mn4">
+			<div class="g-mn4c">
+				<div class="g-wrap6">
+					<div class="m-info f-cb">
+						<div class="cover u-cover u-cover-dj">
+							<img
+								src={{userinfo.pic}}
+								class="j-img"
+								data-src="http://p4.music.126.net/zwVS7DI_X0y1yhObWWz0Sw==/6652045349717340.jpg">
+							<span class="msk"></span>
+						</div>
+						<div class="cnt">
+							<div class="cntc">
+								<p id="album-desc-more" class="intr f-brk"
+									style="font-size: 18px; color: black;">
+									昵称：{{userinfo.nickname}}<br><br> 性别：{{userinfo.gender}}<br><br>
+									地址：{{userinfo.address}}<br><br> 加入日期：{{userinfo.createddate}}<br>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="n-songtb">
+						<div class="u-title u-title-1 f-cb">
+							<h3>
+								<span class="f-ff2">使用记录</span>
+							</h3>
+							<div style="float:right;margin-top: 10px;">
+								时长><select id="duration" onchange="browseDuration();">
+									<option value="">请选择</option>
+									<option value="5">5分钟</option>
+									<option value="10">10分钟</option>
+									<option value="15">15分钟</option>
+									<option value="15">20分钟</option>
+									<option value="30">30分钟</option>
+									<option value="60">60分钟</option>
+								</select>
+							</div>
+						</div>
+						<div id="song-list-pre-cache" data-key="track_playlist-152235296">
+							<div id="auto-id-blEpMfFOsWSEEUQ7">
+								<div class="j-flag" id="auto-id-3pxUtMQ1So68I2iL">
+									<table class="m-table ">
+										<thead>
+											<tr>
+												<th class="first w1"><div class="wp">&nbsp;</div></th>
+												<th><div class="wp">日期</div></th>
+												<th class="w2"><div class="wp">时长</div></th>
+												<th class="w3"><div class="wp">类型</div></th>
+												<th class="w4"><div class="wp">匹配率</div></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for log in runlogs %}
+											<tr class="even">
+												<td class="left"><div class="hd ">
+														<span class="num">{{log.index}}</span>
+													</div></td>
+												<td class=" s-fc3"><div class="text"
+														title="{{log.date}}">
+														<span title="{{log.date}}">{{log.date}}</span>
+													</div></td>
+												<td class=""><div class="text" title="{{log.duration}}">
+														<span title="{{log.duration}}">{{log.duration}}</span>
+													</div></td>
+												<td class=""><div class="text"
+														title="{{log.actionType}}">
+														<span title="{{log.actionType}}">{{log.actionType}}</span>
+													</div></td>
+												<td class=""><div class="text"
+														title="{{log.matchRate}}">
+														<span title="{{log.matchRate}}">{{log.matchRate}}</span>
+													</div></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+								<div class="j-flag"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var search = location.search.substring(1);
+		var interval = search.split("&")[1];
+
+		if (interval != 'all') {
+			duration = document.getElementById("duration").value = interval;
+		}
+
+		function browseDuration() {
+			var query = location.search.substring(1);
+			var userid = query.split("&")[0];
+
+			var duration = document.getElementById("duration").value;
+			if (duration == '') {
+				duration = 'all';
+			}
+			window.location.href = "http://songcheck.paohaile.com:8030/user_log?"
+					+ userid + "&" + duration;
+		}
+	</script>
+</body>
+</html>
