@@ -10,9 +10,9 @@ let userModel = require('./db_models').userModel;
 let operatingModel= require('./db_models').operatingModel;
 let co = require('co');
 
-//let today=new Date();
-//var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
-//console.log(new Date(time_end))
+let today=new Date();
+var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+console.log(new Date(time_end))
 
 
 
@@ -30,7 +30,7 @@ let co = require('co');
 //}
 
 co(function  *runlog() {
-    for (var time_end = 1451577600000; time_end <= 1461254400000;time_end += 86400000) {
+    //for (var time_end = 1451577600000; time_end <= 1461168000;time_end += 86400000) {
         let records = yield runLogsModel.find({
             "createdOn": {
                 "$gte": new Date(time_end - 86400000),
@@ -150,11 +150,9 @@ co(function  *runlog() {
             "runlog": runlogs,
             "top10_songlist": top10_songlist
         }).save();
-    }
 
     //yield operatingModel.insert({"date":new Date(), "runlog":runlogs});
-})
-    .then(function() {console.log('done');process.exit(1)})
+}).then(function() {console.log('done');process.exit(1)})
 
 
 
