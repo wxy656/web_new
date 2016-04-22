@@ -2,15 +2,15 @@
  * Created by ThinkPad on 2016/4/15.
  */
 'use strict';
-let mongoose = require('mongoose');
-let _ = require('lodash');
-let runLogsModel = require('./db_models').runLogsModel;
-let songlistModel = require('./db_models').songlistModel;
-let userModel = require('./db_models').userModel;
-let operatingModel= require('./db_models').operatingModel;
-let co = require('co');
+var  mongoose = require('mongoose');
+var  _ = require('lodash');
+var  runLogsModel = require('./db_models').runLogsModel;
+var  songlistModel = require('./db_models').songlistModel;
+var  userModel = require('./db_models').userModel;
+var  operatingModel= require('./db_models').operatingModel;
+var  co = require('co');
 
-let today=new Date();
+var  today=new Date();
 var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
 console.log(new Date(time_end))
 
@@ -31,7 +31,7 @@ console.log(new Date(time_end))
 
 co(function  *runlog() {
     //for (var time_end = 1451577600000; time_end <= 1461168000;time_end += 86400000) {
-        let records = yield runLogsModel.find({
+        var  records = yield runLogsModel.find({
             "createdOn": {
                 "$gte": new Date(time_end - 86400000),
                 "$lt": new Date(time_end)
