@@ -35,10 +35,10 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 11;
-rule.minute = 50;
+rule.minute = 55;
 
 module.export={
-    dingshi: schedule.scheduleJob(date, function(){
+    dingshi: schedule.scheduleJob(rule, function(){
         co(function  *runlog() {
             //for (var time_end = 1451577600000; time_end <= 1461168000;time_end += 86400000) {
             let records = yield runLogsModel.find({
