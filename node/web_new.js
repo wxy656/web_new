@@ -12,7 +12,7 @@ let bodyParser = require('co-body');
 let views = require('co-views');
 let serve = require('koa-static');
 
-let render = views('../views/', {
+let render = views('./views/', {
     map: { html: 'swig' },
     md: 'hogan'
 });
