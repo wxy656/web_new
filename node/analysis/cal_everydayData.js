@@ -11,7 +11,7 @@ let operatingModel= require('./db_models').operatingModel;
 let co = require('co');
 
 let today=new Date();
-var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+var time_end=new Date(today.getFullYear(),today.getMonth(),(today.getDate()-1).getTime()
 console.log(new Date(today))
 
 
@@ -35,7 +35,7 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 11;
-rule.minute = 55;
+rule.minute = 59;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
