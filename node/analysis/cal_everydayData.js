@@ -178,7 +178,7 @@ module.export={
             new operatingModel({
                 "date": new Date(time_end - 3600 * 10000),
                 "runlog": runlogs,
-                "top10_songlist": top10_songlist
+                "top10_songlist": top10_songlist,
                 "youmeng":youmeng
             }).save();
 
