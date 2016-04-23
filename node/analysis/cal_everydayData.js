@@ -35,7 +35,7 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 12;
-rule.minute = 2;
+rule.minute =10;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
@@ -76,7 +76,6 @@ module.export={
                             }
                             ;
                         }
-
                     }
                     ;
                     if (record.duration >= 600 && record.duration < 1200) {
@@ -154,15 +153,37 @@ module.export={
             }
             var top10_songlist = _.sortBy(top10_songlist, ['count']);
             var top10_songlist = top10_songlist.slice(top10_songlist.length - 10, top10_songlist.length);
-
+            let youmeng={
+                "newUser" : {
+                    "android" : 0,
+                    "ios" : 0,
+                    "all" : 0
+                },
+                "activeUser" : {
+                    "android" : 0,
+                    "ios" : 0,
+                    "all" : 0
+                },
+                "total_user" : {
+                    "android" : 0,
+                    "ios" : 0,
+                    "all" : 0
+                },
+                "openNum" : {
+                    "android" : 0,
+                    "ios" : 0,
+                    "all" : 0
+                }
+            }
             new operatingModel({
                 "date": new Date(time_end - 3600 * 10000),
                 "runlog": runlogs,
                 "top10_songlist": top10_songlist
+                "youmeng":youmeng
             }).save();
 
             //yield operatingModel.insert({"date":new Date(), "runlog":runlogs});
-        }).then(function() {console.log('done');process.exit(1)});
+        }).then(function() {console.log('done')});
         console.log("fffff")
     })
 }
