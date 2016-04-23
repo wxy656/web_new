@@ -2,9 +2,12 @@
  * Created by ThinkPad on 2016/4/18.
  */
 "use strict";
-let aa={"dd":1232,"ddd":333}
-var qq=""
-for (var i in aa){
-    qq=qq+i+"="+aa[i]+"&"
-}
-console.log(qq)
+let schedule = require("node-schedule");
+
+var date = new Date(2016,4,14,15,40,0);
+
+var j = schedule.scheduleJob(date, function(){
+
+    console.log("Ö´ÐÐÈÎÎñ");
+
+});

@@ -18,6 +18,10 @@ let render = views('../views/', {
 });
 
 let daySummaryController = require('./day_summary/controller');
+let dingshitask=require('./analysis/cal_everydayData').dingshi;
+
+
+
 // routes
 var app=koa();
 app.use(logger());
