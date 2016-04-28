@@ -33,9 +33,9 @@
 								<p id="album-desc-more" class="intr f-brk"
 									style="font-size: 18px; color: black;">
 									选择日期：<input id="selectedTime" type="date" /><br><br>
-									今日使用总次数：{{dataout["countNum"]}}<br><br>
-									大于10min的次数：{{dataout["realcount2Num"]}}<br><br>
-									大于10min的次数：{{dataout["realcountNum"]}}<br>
+									今日使用总人数：{{dataout["countNum"]}}<br><br>
+									大于10min的人数：{{dataout["gte10"]}}<br><br>
+									大于20min的人数：{{dataout["gte20"]}}<br>
 								</p>
 							</div>
 						</div>
@@ -78,12 +78,12 @@
 														<span title="{{user.count}}">{{user.count}}</span>
 													</div></td>
 												<td class=""><div class="text"
-														title="{{user.real2count}}">
-														<span title="{{user.real2count}}">{{user.real2count}}</span>
+														title="{{user.gte10}}">
+														<span title="{{user.gte10}}">{{user.gte10}}</span>
 													</div></td>
 												<td class=""><div class="text"
-														title="{{user.realcount}}">
-														<span title="{{user.realcount}}">{{user.realcount}}</span>
+														title="{{user.gte20}}">
+														<span title="{{user.gte20}}">{{user.gte20}}</span>
 													</div></td>
 											</tr>
 											{% endfor %}

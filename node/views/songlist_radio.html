@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link
+            href="http://s2.music.126.net/s/2/core.css?ae14f1474c34ab5f63ebbd0b191853d3"
+            type="text/css" rel="stylesheet">
+    <link
+            href="http://s2.music.126.net/s/2/pt_frame.css?55bf38a08df8bdd3cd15fb8529bb237a"
+            type="text/css" rel="stylesheet">
+</head>
+<body>
+<div id="m-playlist" class="g-bd4 f-cb">
+    <div class="g-mn4">
+        <div class="g-mn4c">
+            <div class="g-wrap6">
+                <div class="m-info f-cb">
+
+
+                </div>
+                <div class="n-songtb">
+                    <div class="u-title u-title-1 f-cb">
+                        <h3>
+                            <span class="f-ff2">用户列表</span>
+                        </h3>
+                    </div>
+                    <div id="song-list-pre-cache" data-key="track_playlist-152235296">
+                        <div id="auto-id-blEpMfFOsWSEEUQ7">
+                            <div class="j-flag" id="auto-id-3pxUtMQ1So68I2iL">
+                                <table class="m-table ">
+                                    <thead>
+                                    <tr>
+                                        <th class="first w1"><div class="wp">&nbsp;</div></th>
+                                        <th><div class="wp">歌单名称</div></th>
+                                        <th class="w2"><div class="wp">今日收听次数</div></th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for songlist in topl0 %}
+                                    <tr class="even">
+                                        <td class="left"><div class="hd ">
+                                            <span class="num">{{songlist.index}}</span>
+                                        </div></td>
+                                        <td class=""><div class="f-cb">
+                                            <div class="tt">
+                                                <div class="ttc">
+																<span class="txt"><a
+                                                                        href="http://api.paohaile.com/sharing_songlist?songlist={{songlist._id}}&all"><b
+                                                                        title="{{songlist.name}}">{{songlist.name}}</b></a></span>
+                                                </div>
+                                            </div>
+                                        </div></td>
+                                        <td class=""><div class="text" title="{{songlist.count}}">
+                                            <span title="{{songlist.count}}">{{songlist.count}}</span>
+                                        </div></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="j-flag"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var query = location.search.substring(1);
+    var selectedTime=query.split("&")[0];
+
+    document.getElementById("selectedTime").value=formatDate(new Date(parseInt(selectedTime)));
+    document.getElementById("currentTime").innerHTML=formatDate(new Date(parseInt(selectedTime)))+'用户使用情况';
+
+    function formatDate(time) {
+        var year=time.getFullYear();
+        var month=formatNum(time.getMonth()+1);
+        var day=formatNum(time.getDate());
+        return year+"-"+month+"-"+day;
+    }
+
+    function formatNum(num){
+        return  num=num.toString().length==1?'0'+num:num.toString();
+    }
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ let _ = require('lodash');
 let operatingModel= require('../analysis/db_models').operatingModel;
 let views = require('co-views');
 
-let render = views('../views/', {
+let render = views('./views/', {
     map: { html: 'swig' },
     md: 'hogan'
 });

@@ -4,10 +4,7 @@
 "use strict";
 let schedule = require("node-schedule");
 
-var date = new Date(2016,4,14,15,40,0);
+var rule = new schedule.RecurrenceRule();
 
-var j = schedule.scheduleJob(date, function(){
-
-    console.log("Ö´ÐÐÈÎÎñ");
-
-});
+rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+console.log(rule.dayOfWeek)

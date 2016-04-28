@@ -18,7 +18,9 @@ let render = views('./views/', {
 });
 
 let daySummaryController = require('./day_summary/controller');
-let dingshitask=require('./analysis/cal_everydayData').dingshi;
+let dingshitask = require('./analysis/cal_everydayData').dingshi;
+let songlist_radioController = require('./everyday_details/songlist_radioController');
+let userListController = require('./everyday_details/userListController');
 
 
 
@@ -26,5 +28,9 @@ let dingshitask=require('./analysis/cal_everydayData').dingshi;
 var app=koa();
 app.use(logger());
 app.use(route.get('/day_summary/',daySummaryController.day_summary));
+app.use(route.get('/songlistRadio/',songlist_radioController.songlist_radio));
+app.use(route.get('/userList/',userListController.userList));
+
+
 app.listen(8040)
 console.log('listening on port 8040')
