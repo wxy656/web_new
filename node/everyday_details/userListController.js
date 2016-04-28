@@ -50,7 +50,7 @@ module.exports = {
                         gte20++;
                     }
                     if (record.gte10 > 0) {
-                        gte100++;
+                        gte10++;
                     }
                     record.user = record.user.toString();
                     index++;
