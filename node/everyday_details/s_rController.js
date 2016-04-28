@@ -21,7 +21,6 @@ module.exports={
         });
         let dates = parseInt(querydata.date) || new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
         var  data_raws=yield operatingModel.findOne({"date": {"$gte": new Date(dates - 86400000), "$lt": new Date(dates)}}).lean();
-        console.log(data_raws)
         let gte20=data_raws.runlog.gte20
         let bte10_20=data_raws.runlog.bte10_20
         let lt10=data_raws.runlog.lt10
@@ -36,6 +35,7 @@ module.exports={
         _.map(top10,function(songlist){
             index++;
             songlist.index=index;
+            songlist._id=songlist._id.toString()
         })
         this.body = yield render('songlist_radio', {"radioNum": radioNum,"songlistNum":songlistNum,topl0:top10})
 
