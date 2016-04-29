@@ -27,6 +27,9 @@ module.exports={
 
         let radioNum=gte20.radio.all + bte10_20.radio.all + lt10.radio.all
         let songlistNum=gte20.songlist.all +bte10_20.songlist.all + lt10.songlist.all
+
+        let radio_20Ratio=(gte20.radio.all/radioNum*100).toFixed(2)+"%"
+        let songlist_20Ratio=(gte20.songlist.all/songlistNum*100).toFixed(2)+"%"
         var top10=data_raws.top10_songlist
         top10.sort(function (a, b) {
             return b.count - a.count;
@@ -37,7 +40,8 @@ module.exports={
             songlist.index=index;
             songlist._id=songlist._id.toString()
         })
-        this.body = yield render('songlist_radio', {"radioNum": radioNum,"songlistNum":songlistNum,topl0:top10})
+        console.log(songlist_20Ratio)
+        this.body = yield render('songlist_radio', {"radioNum": radioNum,"songlistNum":songlistNum,"topl0":top10,"radio_20Ratio":radio_20Ratio,"songlist_20Ratio":songlist_20Ratio})
 
 
     }
