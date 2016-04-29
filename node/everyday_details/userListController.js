@@ -53,7 +53,7 @@ module.exports = {
                     }
                     record.user = record.user.toString();
                     index++;
-                    results.index = index;
+                    record.index = index;
                 })
                 resolve({
                     "countNum": results.length,
