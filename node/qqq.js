@@ -2,9 +2,7 @@
  * Created by ThinkPad on 2016/4/18.
  */
 "use strict";
-let schedule = require("node-schedule");
-
-var rule = new schedule.RecurrenceRule();
-
-rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-console.log(rule.dayOfWeek)
+let _=require("lodash")
+let results=[{user:"dd","count":1,"gte20":1},{user:"dd","count":1,"gte20":3},{user:"dd","count":1,"gte20":2}]
+results=_.sortBy(results, function(o) { return o.gte20; });
+console.log(results.reverse())
