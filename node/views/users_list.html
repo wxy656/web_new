@@ -32,7 +32,6 @@
 								</div>
 								<p id="album-desc-more" class="intr f-brk"
 									style="font-size: 18px; color: black;">
-									选择日期：<input id="selectedTime" type="date" /><br><br>
 									今日使用总人数：{{dataout["countNum"]}}<br><br>
 									大于10min的人数：{{dataout["gte10Num"]}}<br><br>
 									大于20min的人数：{{dataout["gte20Num"]}}<br>
@@ -44,8 +43,10 @@
 						<div class="u-title u-title-1 f-cb">
 							<h3>
 								<span class="f-ff2">用户列表</span>
-
 							</h3>
+							<div style="float: right; margin-top: 10px;">
+								选择日期：<input id="selectedTime" type="date" onchange="browseDayChart()"/>
+							</div>
 						</div>
 						<div id="song-list-pre-cache" data-key="track_playlist-152235296">
 							<div id="auto-id-blEpMfFOsWSEEUQ7">
@@ -124,6 +125,11 @@
     function formatNum(num){
     	return  num=num.toString().length==1?'0'+num:num.toString();
     }
+	function browseDayChart(){
+		var chartDate=document.getElementById("selectedTime").value.replace(/-/g,'/');
+
+		window.location.href="http://songcheck.paohaile.com:8030/users_list?"+ new Date(chartDate).getTime()+"&"+timeType;
+	}
 	</script>
 </body>
 </html>
