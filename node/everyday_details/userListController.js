@@ -42,9 +42,8 @@ module.exports = {
             runLogsModel.collection.group(group.key, group.cond, group.initial, group.reduce, group.finalize, true, function (err, results) {
 
                 var gte20 = 0, gte10 = 0, index = 0
-                results.sort(function (a, b) {
-                    return b.gte20 - a.gte10;
-                });
+
+                _.sortBy(results, function(o) { return o.gte20; });
                 _.map(results, function (record) {
                     if (record.gte20 > 0) {
                         gte20++;
