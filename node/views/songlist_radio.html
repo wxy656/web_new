@@ -16,7 +16,7 @@
         <div class="g-mn4c">
             <div class="g-wrap6">
                 <div class="m-info f-cb">
-                    <div id="main" style="height:200px;width:400px;background-color:#e5e5e5"></div>
+                    <div id="main" style="height:200px;width:400px;backgroundColor:#e5e5e5"></div>
 
                 </div>
                 <div class="n-songtb">
@@ -92,7 +92,7 @@
                     title : {
                         text: '歌单电台比',
                         subtext: '',
-                        x:'center'
+                        x:'left'
                     },
                     tooltip : {
                         trigger: 'item',
@@ -100,7 +100,8 @@
                     },
                     legend: {
                         orient : 'vertical',
-                        x : 'left',
+                        x : '20px',
+                        y : '50px',
                         data:['歌单','电台']
                     },
                     toolbox: {
@@ -127,7 +128,7 @@
                     calculable : true,
                     series : [
                         {
-                            name:'访问来源',
+                            name:'收听总量',
                             type:'pie',
                             radius : '55%',
                             center: ['50%', '60%'],
