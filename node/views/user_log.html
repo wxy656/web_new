@@ -98,23 +98,32 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		var search = location.search.substring(1);
-		var interval = search.split("&")[1];
+		function convertJson(query){
+			var queryList=query.split("&");
+			var temp={}
+			for (var i=0;i<queryList.length;i++){
+				temp[queryList[i].split("=")[0]]=queryList[i].split("=")[1]
+			}
+			return temp
+		}
+		var query = location.search.substring(1);
+		var ducondition=convertJson(query)["ducondition"];
 
-		if (interval != 'all') {
-			duration = document.getElementById("duration").value = interval;
+		var userid = convertJson(query)["userId"];
+
+		if (ducondition != 'all') {
+			duration = document.getElementById("duration").value = ducondition;
 		}
 
 		function browseDuration() {
 			var query = location.search.substring(1);
-			var userid = query.split("&")[0];
+			var userid = userid = convertJson(query)["userId"]
 
 			var duration = document.getElementById("duration").value;
 			if (duration == '') {
 				duration = 'all';
 			}
-			window.location.href = "http://songcheck.paohaile.com:8030/user_log?"
-					+ userid + "&" + duration;
+			window.location.href = "http://songcheck.paohaile.com:8030/userLog?userId=" + userid + "&" +"ducondition=" +duration;
 		}
 	</script>
 </body>
