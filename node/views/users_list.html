@@ -71,7 +71,7 @@
 														<div class="tt">
 															<div class="ttc">
 																<span class="txt"><a
-																	href="http://songcheck.paohaile.com:8030/user_log?{{user.user}}&all"><b
+																	href="http://songcheck.paohaile.com:8030/userLog?{{user.user}}&all"><b
 																		title="{{user.user}}">{{user.user}}</b></a></span>
 															</div>
 														</div>
@@ -134,7 +134,7 @@
 	function browseDayChart(){
 		var chartDate=document.getElementById("selectedTime").value.replace(/-/g,'/');
 
-		window.location.href="http://songcheck.paohaile.com:8040/userList?date="+ new Date(chartDate).getTime();
+		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime();
 	}
 	</script>
 </body>

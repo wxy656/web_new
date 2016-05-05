@@ -16,28 +16,25 @@
         <div class="g-mn4c">
             <div class="g-wrap6">
                 <div class="m-info f-cb">
-                    <div id="main" style="height:200px;width:300px;background-color:#F9F9F9"></div>
-                    <div class="cnt">
-                        <div class="cntc">
-                            <div class="hd f-cb">
-                                <div class="tit">
-                                    <h2 id="currentTime" class="f-ff2 f-brk"></h2>
-                                </div>
-                            </div>
-                            <p id="album-desc-more" class="intr f-brk"
-                               style="font-size: 18px; color: black;">
-                                歌单20min以上占比：{{songlist_20Ratio}}<br><br>
-                                电台20min以上占比：{{radio_20Ratio}}<br><br>
-                            </p>
-                        </div>
+                    <div class="dd">
+                        <h2 id="currentTime" style="font-size:25px;text-align:center"></h2>
                     </div>
-
+                    <br><br>
+                    <p id="album-desc-more" class="intr f-brk"
+                       style="font-size: 15px; color: black;">
+                        歌单20min以上占比：{{songlist_20Ratio}}<br><br>
+                        电台20min以上占比：{{radio_20Ratio}}<br><br>
+                    </p>
+                    <div id="main" style="height:200px;width:600px;background-color:#F9F9F9"></div>
                 </div>
                 <div class="n-songtb">
                     <div class="u-title u-title-1 f-cb">
                         <h3>
                             <span class="f-ff2">top10歌单列表</span>
                         </h3>
+                        <div style="float: right; margin-top: 10px;">
+                            选择日期：<input id="selectedTime" type="date" onchange="browseDayChart()"/>
+                        </div>
                     </div>
                     <div id="song-list-pre-cache" data-key="track_playlist-152235296">
                         <div id="auto-id-blEpMfFOsWSEEUQ7">
@@ -165,8 +162,16 @@
     );
 
 
+    function convertJson(query){
+        var queryList=query.split("&");
+        var temp={}
+        for (var i=0;i<queryList.length;i++){
+            temp[queryList[i].split("=")[0]]=queryList[i].split("=")[1]
+        }
+        return temp
+    }
     var query = location.search.substring(1);
-    var selectedTime=query.split("&")[0];
+    var selectedTime=convertJson(query)["date"];
 
     document.getElementById("selectedTime").value=formatDate(new Date(parseInt(selectedTime)));
     document.getElementById("currentTime").innerHTML=formatDate(new Date(parseInt(selectedTime)))+'用户使用情况';
@@ -180,6 +185,10 @@
 
     function formatNum(num){
         return  num=num.toString().length==1?'0'+num:num.toString();
+    }
+    function browseDayChart(){
+        var chartDate=document.getElementById("selectedTime").value.replace(/-/g,'/');
+        window.location.href="http://songcheck.paohaile.com:8030/songlistRadio?date="+ new Date(chartDate).getTime();
     }
 </script>
 </body>

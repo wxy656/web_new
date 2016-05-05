@@ -21,6 +21,7 @@ let daySummaryController = require('./day_summary/controller');
 let dingshitask = require('./analysis/cal_everydayData').dingshi;
 let songlistRadioController = require('./everyday_details/s_rController');
 let userListController = require('./everyday_details/userListController');
+let userLogControlle = require('./userInfo/userLogController');
 
 
 
@@ -30,7 +31,8 @@ app.use(logger());
 app.use(route.get('/day_summary/',daySummaryController.day_summary));
 app.use(route.get('/songlistRadio/',songlistRadioController.songlistRadio));
 app.use(route.get('/userList/',userListController.userList));
+app.use(route.get('/userLog/',userLogControlle.userLog));
 
 
-app.listen(8040)
-console.log('listening on port 8040')
+app.listen(8030)
+console.log('listening on port 8030')

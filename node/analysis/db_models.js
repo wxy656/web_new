@@ -181,9 +181,8 @@ let operatingSchema=new mongoose.Schema(_.extend({
 
 }));
 
-let today=new Date();
-var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime();
-var stepcount=86400000;
+
+
 
 
 

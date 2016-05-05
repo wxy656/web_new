@@ -228,7 +228,7 @@
 //					  };
 //					  console.info(zhouqi)
                     var zhouqi="&day"
-                	window.location.href="http://songcheck.paohaile.com:8030/users_list?"+ new Date(chartDate).getTime().toString()+zhouqi;
+                	window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime().toString();
                 });
             }
     );
@@ -288,14 +288,14 @@
         var query = location.search.substring(1);
         query = createUrl(query, "time_start", new Date(chartStart).getTime())
         query = createUrl(query, "time_end", new Date(chartEnd).getTime())
-        window.location.href = "http://songcheck.paohaile.com:8040/day_summary?" + query;
+        window.location.href = "http://songcheck.paohaile.com:8030/day_summary?" + query;
     }
 
     function browseElment(elment) {
         var query = location.search.substring(1);
         var elment_value = document.getElementById(elment).value;
         if ( elment_value != '') {
-            window.location.href = "http://songcheck.paohaile.com:8040/day_summary?"+createUrl (query,elment,elment_value)
+            window.location.href = "http://songcheck.paohaile.com:8030/day_summary?"+createUrl (query,elment,elment_value)
         }
     }
 
