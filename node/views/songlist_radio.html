@@ -174,7 +174,7 @@
     var selectedTime=convertJson(query)["date"];
 
     document.getElementById("selectedTime").value=formatDate(new Date(parseInt(selectedTime)));
-    document.getElementById("currentTime").innerHTML=formatDate(new Date(parseInt(selectedTime)))+'用户使用情况';
+    document.getElementById("currentTime").innerHTML=formatDate(new Date(parseInt(selectedTime)))+'歌单电台统计情况';
 
     function formatDate(time) {
         var year=time.getFullYear();

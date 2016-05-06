@@ -4,7 +4,7 @@
 'use strict';
 let mongoose = require('mongoose');
 let _ = require('lodash');
-let runLogModel= require('../analysis/db_models').runLogModel;
+let runLogModel= require('../analysis/db_models').runLogsModel;
 let userModel=require('../analysis/db_models').userModel;
 
 let views = require('co-views');
@@ -16,22 +16,21 @@ let render = views('./views/', {
 
 module.exports= {
     userLog:function *(req, res, next){
-
-
         let querydata = {}
         _.map(this.querystring.toString().split("&"), function (data) {
             querydata[data.split("=")[0]] = data.split("=")[1]
         });
-        let userId =querydata.userId
-        let ducondotion = querydata.ducondotion
 
+        let userId =querydata.userId||this.querystring.toString().split("&")[0]
+        let ducondotion = querydata.ducondition||this.querystring.toString().split("&")[1]
+        console.log(this.querystring.toString())
         let userinfo = yield userModel.findOne({"_id": userId}, {
             "nickname": 1,
             "gender": 1,
             "residence": 1,
             "createdOn": 1,
             "headingImgUrl": 1
-        })
+        }).lean()
         //address
         if (userinfo["residence"] != undefined) {
             var address = userinfo["residence"]["country"] + userinfo["residence"]["province"] + userinfo["residence"]["city"]
@@ -40,7 +39,7 @@ module.exports= {
         }
 
        let userout = {
-            "createddate": userinfo["createdOn"].getFullYear() + "Äê" + (userinfo["createdOn"].getMonth() + 1) + "ÔÂ" + userinfo["createdOn"].getDate() + "ÈÕ",
+            "createddate": userinfo["createdOn"].getFullYear() + "å¹´" + (userinfo["createdOn"].getMonth() + 1) + "æœˆ" + userinfo["createdOn"].getDate() + "æ—¥",
             "nickname": userinfo["nickname"],
             "gender": userinfo["gender"],
             "address": address,
@@ -48,18 +47,18 @@ module.exports= {
         }
 
         if (ducondotion == "all") {
-           let  runlogs = yield runLogModel.find({"user": userId}, {
+           var  runlogs = yield runLogModel.find({"user": userId}, {
                 "duration": 1,
                 "matchRate": 1,
                 "startedOn": 1,
                 "actionType": 1,
                 "_id": 0
-            })
+            }).lean()
         } else {
-           let runlogs = yield runLogModel.find({
+           var runlogs = yield runLogModel.find({
                 "user": userId,
                 "duration": {"$gte": parseInt(ducondotion) * 60}
-            }, {"duration": 1, "matchRate": 1, "startedOn": 1, "actionType": 1, "_id": 0})
+            }, {"duration": 1, "matchRate": 1, "startedOn": 1, "actionType": 1, "_id": 0}).lean()
         }
 
         runlogs.sort(function (a, b) {
@@ -67,17 +66,19 @@ module.exports= {
         });
 
         let runlogs_out = []
+        var index=0
         _.map(runlogs,function(record){
             var hour = (Math.floor(record["duration"] / 3600) < 10) ? "0" + Math.floor(record["duration"] / 3600) : Math.floor(record["duration"] / 3600);
             var other =record["duration"] % 3600;
             var minute = (Math.floor(other / 60) < 10) ? "0" + Math.floor(other / 60) : Math.floor(other / 60);
-            var second = ((other % 60) < 10) ? "0" + (other % 60).toFixed(0) : (other % 60).toFixed(0)
+            var second = ((other % 60) < 10) ? "0" + (other % 60).toFixed(0) : (other % 60).toFixed(0);
+            index+=1
             var out = {
-                "date": runlogs[i]["startedOn"].getFullYear() + "Äê" + (runlogs[i]["startedOn"].getMonth() + 1) + "ÔÂ" + runlogs[i]["startedOn"].getDate() + "ÈÕ",
+                "date": record["startedOn"].getFullYear() + "å¹´" + (record["startedOn"].getMonth() + 1) + "æœˆ" + record["startedOn"].getDate() + "æ—¥",
                 "duration": hour + ":" + minute + ":" + second,
-                "actionType": runlogs[i]["actionType"],
-                "matchRate": runlogs[i]["matchRate"] + "%",
-                "index": i + 1
+                "actionType": record["actionType"],
+                "matchRate": record["matchRate"] + "%",
+                "index": index
             }
             runlogs_out.push(out)
         })

@@ -108,22 +108,27 @@
 		}
 		var query = location.search.substring(1);
 		var ducondition=convertJson(query)["ducondition"];
-
 		var userid = convertJson(query)["userId"];
-
+		if (typeof(userid)=="undefined"){
+			ducondition=query .split("&")[1];
+		};
 		if (ducondition != 'all') {
 			duration = document.getElementById("duration").value = ducondition;
 		}
 
 		function browseDuration() {
 			var query = location.search.substring(1);
-			var userid = userid = convertJson(query)["userId"]
+			var userid = userid = convertJson(query)["userId"];
+
+			if (typeof(userid)=="undefined"){
+				userid=query .split("&")[0];
+			};
 
 			var duration = document.getElementById("duration").value;
 			if (duration == '') {
 				duration = 'all';
 			}
-			window.location.href = "http://songcheck.paohaile.com:8030/userLog?userId=" + userid + "&" +"ducondition=" +duration;
+			window.location.href = "http://songcheck.paohaile.com:8030/user_log?userId=" + userid + "&" +"ducondition=" +duration;
 		}
 	</script>
 </body>

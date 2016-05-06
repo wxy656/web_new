@@ -21,6 +21,8 @@ module.exports = {
             querydata[data.split("=")[0]] = data.split("=")[1]
         });
         let dates = parseInt(querydata.date) || new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+        let startNum= parseInt(querydata.pageNum)*50 || 0
+
 
         let group = {
             key: {user: 1},
@@ -29,11 +31,10 @@ module.exports = {
                 prev.count += 1;
                 if (obj.duration >= 1200) {
                     prev.gte20 += 1;
-                }
-                ;
+                };
                 if (obj.duration >= 600) {
                     prev.gte10 += 1;
-                }
+                };
             },
             initial: {count: 0, gte20: 0, gte10: 0},
             finalize: {}
@@ -41,9 +42,9 @@ module.exports = {
         let dataout = yield new Promise(function (resolve, reject) {
             runLogsModel.collection.group(group.key, group.cond, group.initial, group.reduce, group.finalize, true, function (err, results) {
 
-                var gte20 = 0, gte10 = 0, index = 0
+                var gte20 = 0, gte10 = 0, index = 0;
                 results=_.sortBy(results, function(o) { return o.gte20; }).reverse();
-
+                let endNum=(startNum+50<results.length)?startNum+50:results.length;
                 _.map(results, function (record) {
                     if (record.gte20 > 0) {
                         gte20++;
@@ -54,12 +55,20 @@ module.exports = {
                     record.user = record.user.toString();
                     index++;
                     record.index = index;
-                })
+
+                });
+                let resultsOut=[];
+                for (let i=startNum;i<endNum;i++){
+                    results[i].nickname=yield userModel.findOne({"_id": results[i].user},{"nickname":1}).lean().nickname
+                    resultsOut.push(results[i]);
+                }
+
                 resolve({
                     "countNum": results.length,
+                    "totalPage":Math.ceil(results.length/50),
                     "gte20Num": gte20,
                     "gte10Num": gte10,
-                    "userlists": results
+                    "userlists": resultsOut
                 })
             });
         });
