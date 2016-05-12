@@ -10,9 +10,7 @@ let userModel = require('./db_models').userModel;
 let operatingModel= require('./db_models').operatingModel;
 let co = require('co');
 
-let today=new Date();
-var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
-console.log(new Date(today))
+
 
 
 
@@ -34,13 +32,16 @@ let schedule = require("node-schedule");
 var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 10;
-rule.minute =3;
+rule.hour = 9;
+rule.minute =7;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
         co(function  *runlog() {
             //for (var time_end = 1451577600000; time_end <= 1461168000;time_end += 86400000) {
+            let today=new Date();
+            var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+            console.log(new Date(today));
             let records = yield runLogsModel.find({
                 "createdOn": {
                     "$gte": new Date(time_end - 86400000),
@@ -128,8 +129,7 @@ module.export={
                     console.log(e)
                 }
 
-            }
-            ;
+            };
 
             var temp = ["ios", "android"]
             _.map(temp, function (elment) {
@@ -137,7 +137,6 @@ module.export={
                 runlogs["bte10_20"]["all"][elment] = runlogs["bte10_20"]["radio"][elment] + runlogs["bte10_20"]["songlist"][elment];
                 runlogs["gte20"]["all"][elment] = runlogs["gte20"]["radio"][elment] + runlogs["gte20"]["songlist"][elment];
             })
-
             var temp = ["radio", "songlist", "all"]
             _.map(temp, function (elment) {
                 runlogs["lt10"][elment]["all"] = runlogs["lt10"][elment]["ios"] + runlogs["lt10"][elment]["android"];
@@ -145,8 +144,6 @@ module.export={
                 runlogs["gte20"][elment]["all"] = runlogs["gte20"][elment]["ios"] + runlogs["gte20"][elment]["android"];
 
             })
-
-
             var top10_songlist = []
             for (var key in listInfo) {
                 top10_songlist.push(listInfo[key])
@@ -175,7 +172,7 @@ module.export={
                     "all" : 0
                 }
             }
-            new operatingModel({
+            yield new operatingModel({
                 "date": new Date(time_end - 3600 * 10000),
                 "runlog": runlogs,
                 "top10_songlist": top10_songlist,

@@ -67,7 +67,7 @@
                     },
                     calculable : true,
                     legend: {
-                        data:['日活数','大于20min的用户数','10-20min的用户数',"小于10min的用户数",'20min以上占比','10-20min占比','10min以下占比','log日活比']
+                        data:['日活数','大于20min的次数','10-20min的次数',"小于10min的次数",'20min以上占比','10-20min占比','10min以下占比','log日活比']
                     },
                     xAxis : [
                         {
@@ -113,7 +113,7 @@
 
                         },
                         {
-                            name:'大于20min的用户数',
+                            name:'大于20min的次数',
                             type:'bar',
                             stack: '用户',
                             data:function(){
@@ -127,7 +127,7 @@
 
                         },
                         {
-                            name:'10-20min的用户数',
+                            name:'10-20min的次数',
                             type:'bar',
                             stack: '用户',
                             data:function(){
@@ -141,7 +141,7 @@
 
                         },
                         {
-                            name:'小于10min的用户数',
+                            name:'小于10min的次数',
                             type:'bar',
                             stack: '用户',
                             data:function(){
@@ -227,7 +227,7 @@
 //						 var zhouqi="&week" ;}
 //					  };
 //					  console.info(zhouqi)
-                	window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime().toString()+"pageNum=0";
+                	window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime().toString()+"&pageNum=0";
                 });
             }
     );

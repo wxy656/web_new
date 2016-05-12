@@ -56,7 +56,7 @@
 										<thead>
 											<tr>
 												<th class="first w1"><div class="wp">&nbsp;</div></th>
-												<th><div class="wp">用户编号</div></th>
+												<th><div class="wp">用户昵称</div></th>
 												<th class="w2"><div class="wp">使用次数</div></th>
 												<th class="w4"><div class="wp">大于10min的次数</div></th>
 												<th class="w4"><div class="wp">大于20min的次数</div></th>
@@ -67,6 +67,7 @@
 											<tr class="even">
 												<td class="left"><div class="hd ">
 														<span class="num">{{user.index}}</span>
+													<!--<img src={{user.image}}>&nbsp;</img>-->
 													</div></td>
 												<td class=""><div class="f-cb">
 														<div class="tt">
@@ -97,10 +98,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="paginator">
-						<input type="button" value="上一页" onclick="up()"/>
-						<input type="button" value="上一页" onclick="down({{dataout.totalPage}})"/>
-
+					<br>
+					<div class="paginator" style="text-align:center">
+						<input type="button" value="上一页"  onclick="up()"/>&nbsp
+						<input type="button" value="1 " style="border:aliceblue;background:aliceblue" onclick="page(0)"/>&nbsp
+						<input type="button" value="2 " style="border:aliceblue;background:aliceblue" onclick="page(1)"/>&nbsp
+						<input type="button" value="3 " style="border:aliceblue;background:aliceblue" onclick="page(2)"/>&nbsp
+						<input type="button" value="4 " style="border:aliceblue;background:aliceblue"onclick="page(3)"/>&nbsp
+						<span class="break">...</span>
+						<input type="button" value="end" style="border:aliceblue;background:aliceblue"onclick="page({{dataout.totalPage}})"/>&nbsp
+						<input type="button" value="下一页" onclick="down({{dataout.totalPage}})"/>
 					</div>
 				</div>
 			</div>
@@ -139,40 +146,45 @@
     }
 	function browseDayChart(){
 		var chartDate=document.getElementById("selectedTime").value.replace(/-/g,'/');
-		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"pageNum=0";
+		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"&pageNum=0";
 	}
 	function songlistRadio(){
-		var query = location.search.substring(1);
-		var chartDate=convertJson(query)["date"];
-		console.log(chartDate)
+		//var query = location.search.substring(1);
+		//var chartDate=convertJson(query)["date"];
+		//console.log(chartDate)
 		window.location.href="http://songcheck.paohaile.com:8030/songlistRadio?date="+ new Date(parseInt(selectedTime)).getTime();
 	}
 
 	function up(){
 		var query = location.search.substring(1);
 		var pageNum=convertJson(query)["pageNum"];
-		var chartDate=convertJson(query)["date"];
+		var chartDate=parseInt(convertJson(query)["date"]);
 		var pageno=parseInt(pageNum)-1;
-		if(pageno==0){
+		if(pageno==-1){
 			alert("当前已经是第一页!");
 			return false;
 		}
 		/*这里在将当前页数赋值到页面做显示标志*/
-		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"pageNum="+pageno;
+		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"&pageNum="+pageno;
 	}
 	//下一页
 	function down(endPage){
 		var query = location.search.substring(1);
 		var pageNum=convertJson(query)["pageNum"];
-		var chartDate=convertJson(query)["date"];
+		var chartDate=parseInt(convertJson(query)["date"]);
 		var pageno=parseInt(pageNum)+1;
-		if(pageno==endPage){
+		if(pageno==endPage+1){
 			alert("当前已经是最后一页!");
 			return false;
 		}
 		/*这里在将当前页数赋值到页面做显示标志*/
-		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"pageNum="+pageno;
+		window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"&pageNum="+pageno;
 	}
+	function page(num){
+			var query = location.search.substring(1);
+			var chartDate=parseInt(convertJson(query)["date"]);
+			window.location.href="http://songcheck.paohaile.com:8030/userList?date="+ new Date(chartDate).getTime()+"&pageNum="+num;
+		}
 	</script>
 </body>
 </html>

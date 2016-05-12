@@ -61,9 +61,10 @@ module.exports= {
             }, {"duration": 1, "matchRate": 1, "startedOn": 1, "actionType": 1, "_id": 0}).lean()
         }
 
-        runlogs.sort(function (a, b) {
-            return a.startedOn - b.startedOn;
-        });
+        //runlogs.sort(function (a, b) {
+        //    return a.startedOn - b.startedOn;
+        //});
+        runlogs=_.sortBy(runlogs, function(o) { return o.startedOn; }).reverse();
 
         let runlogs_out = []
         var index=0

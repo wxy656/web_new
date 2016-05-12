@@ -36,6 +36,8 @@ app.use(route.get('/user_log/',userLogControlle.userLog));
 app.use(route.post('/zhuxingtu/',zhuxingtu))
 app.use(route.get('/zhuxingtu/',zhuxingtu))
 
+app.use(route.get('/backcall/',backcall))
+
 
 //临时放在这里的路由
 function *zhuxingtu(req,res,next){
@@ -70,6 +72,17 @@ function *zhuxingtu(req,res,next){
             index.push(i)
         }
         this.body = yield render('zhuxingtu',{"tempo": tempo,"color":color,"index":index})
+    }
+
+
+}
+
+function *backcall(req,res,next){
+    if (this.request.method=="GET"){
+        this.body = yield render('valid')
+    }else{
+
+        this.body = yield render('valid')
     }
 
 
