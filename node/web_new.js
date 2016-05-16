@@ -23,6 +23,9 @@ let songlistRadioController = require('./everyday_details/s_rController');
 let userListController = require('./everyday_details/userListController');
 let userLogControlle = require('./userInfo/userLogController');
 
+let backcallControlle=require('./spotify/backcallController');
+let spotifyControlle=require('./spotify/controller');
+
 
 
 // routes
@@ -36,7 +39,10 @@ app.use(route.get('/user_log/',userLogControlle.userLog));
 app.use(route.post('/zhuxingtu/',zhuxingtu))
 app.use(route.get('/zhuxingtu/',zhuxingtu))
 
-app.use(route.get('/backcall/',backcall))
+app.use(route.get('/backcall/',backcallControlle.backcall))
+app.use(route.get('/songFeature/',spotifyControlle.getfeature))
+app.use(route.get('/songSearch/',spotifyControlle.search))
+
 
 
 //临时放在这里的路由
@@ -77,16 +83,7 @@ function *zhuxingtu(req,res,next){
 
 }
 
-function *backcall(req,res,next){
-    if (this.request.method=="GET"){
-        this.body = yield render('valid')
-    }else{
 
-        this.body = yield render('valid')
-    }
-
-
-}
 
 app.listen(8030)
 console.log('listening on port 8030')

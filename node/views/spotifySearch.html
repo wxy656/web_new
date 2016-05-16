@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="m-playlist" class="g-bd4 f-cb">
+    <div class="g-mn4">
+        <div class="g-mn4c">
+            <div class="g-wrap6">
+                <div class="n-songtb">
+                    <div class="u-title u-title-1 f-cb">
+                        <h3>
+                            <span class="f-ff2">您的搜索结果如下</span>
+                        </h3>
+                    </div>
+                    <div id="song-list-pre-cache" data-key="track_playlist-152235296">
+                        <div id="auto-id-blEpMfFOsWSEEUQ7">
+                            <div class="j-flag" id="auto-id-3pxUtMQ1So68I2iL">
+                                <table class="m-table ">
+                                    <thead>
+                                    <tr>
+                                        <th class="first w1"><div class="wp">&nbsp;</div></th>
+                                        <th><div class="wp">歌曲</div></th>
+                                        <th class="w2"><div class="wp">歌手</div></th>
+                                        <th class="w3"><div class="wp">专辑</div></th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for song in data %}
+                                    <tr class="even">
+                                        <td class="left"><div class="hd ">
+                                            <span class="num">{{song.index}}</span>
+                                        </div></td>
+                                        <td class=""><div class="f-cb">
+                                            <div class="tt">
+                                                <div class="ttc">
+																<span class="txt"><a
+                                                                        href="http://songcheck.paohaile.com:8030/songFeature?spotifyId={{song.id}}"><b
+                                                                        title="{{song.name}}">{{song.name}}</b></a></span>
+                                                </div>
+                                            </div>
+                                        </div></td>
+                                        <td class=""><div class="text" title="{{songlist.count}}">
+                                            <span title="{{song.artistt}}">{{song.artist}}</span>
+                                        </div></td>
+                                        <td class=""><div class="text"
+                                                          title="{{log.actionType}}">
+                                            <span title="{{song.album}}">{{song.album}}</span>
+                                        </div></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="j-flag"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

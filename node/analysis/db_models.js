@@ -6,7 +6,7 @@ let mongoose = require('mongoose');
 let _ = require('lodash');
 let db =mongoose.createConnection("mongodb://54.223.227.163/paohaile")
 let Schema = mongoose.Schema;
-let co = require('co');
+
 
 let runLogSchema = new mongoose.Schema(_.extend({
     _id: {type:String, trim:true},
