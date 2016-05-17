@@ -139,7 +139,7 @@ module.exports = {
                 console.log(resultStr);
                 //return result["sharingListUrl"]
             });
-            this.body=yield render('change_code',{"out":out,"type":"sucess","song":querydata.song})
+            this.body=yield render('change_code',{"out":out,"type":"sucess","song":decodeURIComponent(querydata.song)})
         }
 
     }
