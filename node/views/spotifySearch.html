@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link
+            href="http://s2.music.126.net/s/2/core.css?ae14f1474c34ab5f63ebbd0b191853d3"
+            type="text/css" rel="stylesheet">
+    <link
+            href="http://s2.music.126.net/s/2/pt_frame.css?55bf38a08df8bdd3cd15fb8529bb237a"
+            type="text/css" rel="stylesheet">
 </head>
 <body>
 <div id="m-playlist" class="g-bd4 f-cb">
     <div class="g-mn4">
         <div class="g-mn4c">
             <div class="g-wrap6">
+                <!--<div class="m-info f-cb">-->
+                    <!--<div class="cover u-cover u-cover-dj">-->
+                        <!--<img-->
+                                <!--src={{userinfo.pic}}-->
+                                <!--class="j-img"-->
+                                <!--data-src="http://p4.music.126.net/zwVS7DI_X0y1yhObWWz0Sw==/6652045349717340.jpg">-->
+                        <!--<span class="msk"></span>-->
+                    <!--</div>-->
+                    <!--<div class="cnt">-->
+                        <!--<div class="cntc">-->
+                            <!--<p id="album-desc-more" class="intr f-brk"-->
+                               <!--style="font-size: 18px; color: black;">-->
+                                <!--昵称：{{userinfo.nickname}}<br><br> 性别：{{userinfo.gender}}<br><br>-->
+                                <!--地址：{{userinfo.address}}<br><br> 加入日期：{{userinfo.createddate}}<br>-->
+                            <!--</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="n-songtb">
                     <div class="u-title u-title-1 f-cb">
                         <h3>
@@ -22,9 +46,9 @@
                                     <thead>
                                     <tr>
                                         <th class="first w1"><div class="wp">&nbsp;</div></th>
-                                        <th><div class="wp">歌曲</div></th>
-                                        <th class="w2"><div class="wp">歌手</div></th>
-                                        <th class="w3"><div class="wp">专辑</div></th>
+                                        <th ><div class="wp">歌曲</div></th>
+                                        <th ><div class="wp">歌手</div></th>
+                                        <th ><div class="wp">专辑</div></th>
 
                                     </tr>
                                     </thead>
@@ -38,7 +62,7 @@
                                             <div class="tt">
                                                 <div class="ttc">
 																<span class="txt"><a
-                                                                        href="http://songcheck.paohaile.com:8030/songFeature?spotifyId={{song.id}}"><b
+                                                                        href="http://songcheck.paohaile.com:8030/songFeature?spotifyId={{song.id}}&song={{song.name}}"><b
                                                                         title="{{song.name}}">{{song.name}}</b></a></span>
                                                 </div>
                                             </div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <script src="css/jquery.js" type="text/javascript"></script>
+    <title></title>
+</head>
+<body>
+
+
+<a class="token" id="token" href="{{out.redirectUrl}}">当前token已经失效 ，点击换取新token</a>
+
+<div class="sucess" id="sucess">
+
+    <div id="result">
+      <div id="songname" style="text-align: center">当前搜索歌曲：{{song}}</div>
+        <br><br><br>
+       {{out}}
+    </div>
+    <br><br><br><br><br><br>
+    <form action="http://songcheck.paohaile.com:8030/songSearch" method="GET" id="from1" style="text-align: center">
+        <input id="searchtext" name="query" style="width:200px;height: 22px" value="输入想要搜寻的歌名" type="text" /><!--搜索框-->
+        <input type="submit" value="提交" style="background:#00a3eb;color:#fff;width:100px;height:30px" size="500" ><!--搜索按钮-->
+    </form>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        if ("{{type}}" == "sucess") {
+
+           $(".token").hide();
+
+       }else{
+           $(".sucess").hide();
+       }
+     })
+</script>
+</body>
+</html>

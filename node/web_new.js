@@ -4,7 +4,7 @@
 /**
  * Created by ThinkPad on 2016/4/20.
  */
-"use strict"
+"use strict";
 let koa = require('koa');
 let logger = require('koa-logger');
 let route = require('koa-route');
@@ -16,6 +16,7 @@ let render = views('./views/', {
     map: { html: 'swig' },
     md: 'hogan'
 });
+
 
 let daySummaryController = require('./day_summary/controller');
 let dingshitask = require('./analysis/cal_everydayData').dingshi;
@@ -36,14 +37,14 @@ app.use(route.get('/songlistRadio/',songlistRadioController.songlistRadio));
 app.use(route.get('/userList/',userListController.userList));
 app.use(route.get('/user_log/',userLogControlle.userLog));
 
-app.use(route.post('/zhuxingtu/',zhuxingtu))
-app.use(route.get('/zhuxingtu/',zhuxingtu))
+app.use(route.post('/zhuxingtu/',zhuxingtu));
+app.use(route.get('/zhuxingtu/',zhuxingtu));
 
-app.use(route.get('/backcall/',backcallControlle.backcall))
-app.use(route.get('/songFeature/',spotifyControlle.getfeature))
-app.use(route.get('/songSearch/',spotifyControlle.search))
+app.use(route.get('/backcall/',backcallControlle.backcall));
+app.use(route.get('/songFeature/',spotifyControlle.getfeature));
+app.use(route.get('/songSearch/',spotifyControlle.search));
 
-
+app.use(serve(__dirname + "/public"));
 
 //临时放在这里的路由
 function *zhuxingtu(req,res,next){
@@ -85,5 +86,5 @@ function *zhuxingtu(req,res,next){
 
 
 
-app.listen(8030)
-console.log('listening on port 8030')
+app.listen(8030);
+console.log('listening on port 8030');

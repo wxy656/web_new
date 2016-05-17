@@ -15,16 +15,19 @@ let render = views('./views/', {
 module.exports = {
     backcall:function *(req,res,next){
         if (this.request.method=="GET"){
-            this.querystring.toString().split("&")
-            let querydata={}
+            this.querystring.toString().split("&");
+            let querydata={};
             _.map(this.querystring.toString().split("&"),function(data){
                 querydata[data.split("=")[0]]=data.split("=")[1]
             });
-            yield new tokenModel({
-                "createdOn": new Date(),
-                "type": "code",
-                "value":querydata.code
-            }).save();
+            if (querydata.code){
+                //yield new tokenModel({
+                //    "createdOn": new Date(),
+                //    "type": "code",
+                //    "value":querydata.code
+                //}).save();
+                yield tokenModel.update({"type":"code"}, { $set :{"createdOn": new Date(),"value":querydata.code}},{ upsert :true  });
+            }
             this.body = yield render('valid')
 
         }else{
@@ -33,4 +36,4 @@ module.exports = {
 
 
     }
-}
+};
