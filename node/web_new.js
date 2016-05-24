@@ -11,6 +11,7 @@ let route = require('koa-route');
 let bodyParser = require('co-body');
 let views = require('co-views');
 let serve = require('koa-static');
+let _ = require('lodash');
 
 let render = views('./views/', {
     map: { html: 'swig' },
