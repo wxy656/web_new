@@ -39,6 +39,7 @@ app.use(route.get('/user_log/',userLogControlle.userLog));
 
 app.use(route.post('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/zhuxingtu/',zhuxingtu));
+app.use(route.get('/qudaoTest/',qudaoTest));
 
 app.use(route.get('/backcall/',backcallControlle.backcall));
 app.use(route.get('/songFeature/',spotifyControlle.getfeature));
@@ -82,6 +83,17 @@ function *zhuxingtu(req,res,next){
     }
 
 
+}
+
+function *qudaoTest(req,res,next){
+    this.querystring.toString().split("&");
+    let querydata={};
+    _.map(this.querystring.toString().split("&"),function(data){
+        querydata[data.split("=")[0]]=data.split("=")[1]
+    });
+    let url="http://um0.cn/"+querydata.qudao
+
+    this.body=yield render('browse',{"tourl":url})
 }
 
 
