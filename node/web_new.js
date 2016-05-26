@@ -95,14 +95,16 @@ function *qudaoTest(req,res,next){
     let device=querydata.device || "ios"
     console.log(querydata.device)
     if (device=="android"){
-        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk"
+        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk";
+        this.body=yield render('browse',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
     }else{
-        let url="http://um0.cn/"+querydata.qudao
+        let url="http://um0.cn/"+querydata.qudao;
+        this.body=yield render('browse',{"tourl":url})
     }
 
 
-    this.body=yield render('browse',{"tourl":url})
+
 }
 
 
