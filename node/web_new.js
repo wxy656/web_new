@@ -92,7 +92,15 @@ function *qudaoTest(req,res,next){
     _.map(this.querystring.toString().split("&"),function(data){
         querydata[data.split("=")[0]]=data.split("=")[1]
     });
-    let url="http://um0.cn/"+querydata.qudao
+
+
+    if (querydata.device=="android"){
+        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk"
+        //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
+    }else{
+        let url="http://um0.cn/"+querydata.qudao
+    }
+
 
     this.body=yield render('browse',{"tourl":url})
 }
