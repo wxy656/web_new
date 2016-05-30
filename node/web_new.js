@@ -12,6 +12,7 @@ let bodyParser = require('co-body');
 let views = require('co-views');
 let serve = require('koa-static');
 let _ = require('lodash');
+let mongoose = require('mongoose');
 
 let render = views('./views/', {
     map: { html: 'swig' },
@@ -86,6 +87,12 @@ function *zhuxingtu(req,res,next){
 
 }
 
+
+var db_qudaoTest =mongoose.createConnection("mongodb://localhost/search_record")
+var qudaoTest_Schema = new mongoose.Schema({
+    device:String ,  qudao: String, date:Date
+});
+var qudaoTest_Model=db_qudaoTest.model('qudao_records', qudaoTest_Schema,'qudao_records');
 function *qudaoTest(req,res,next){
     this.querystring.toString().split("&");
     let querydata={};
@@ -96,10 +103,20 @@ function *qudaoTest(req,res,next){
     console.log(querydata.device)
     if (device=="android"){
         let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk";
+        yield new qudaoTest_Model({
+            "date": new Date(),
+            "device": "android",
+            "qudao": querydata.qudao
+        }).save();
         this.body=yield render('browse',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
     }else{
         let url="http://um0.cn/"+querydata.qudao;
+        yield new qudaoTest_Model({
+            "date": new Date(),
+            "device": "ios",
+            "qudao": querydata.qudao
+        }).save();
         this.body=yield render('browse',{"tourl":url})
     }
 
