@@ -126,7 +126,13 @@ function *qudaoTest(req,res,next){
 }
 
 function *temp_huwei(req,res,next){
-        this.body = yield render('index')
+    this.querystring.toString().split("&");
+    let querydata={};
+    _.map(this.querystring.toString().split("&"),function(data){
+        querydata[data.split("=")[0]]=data.split("=")[1]
+    });
+    let yemian= querydata.yemian || "index" ;
+    this.body = yield render(yemian)
 }
 
 app.listen(8030);
