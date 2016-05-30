@@ -42,6 +42,7 @@ app.use(route.get('/user_log/',userLogControlle.userLog));
 app.use(route.post('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/qudaoTest/',qudaoTest));
+app.use(route.get('/temp_huwei/',temp_huwei));
 
 app.use(route.get('/backcall/',backcallControlle.backcall));
 app.use(route.get('/songFeature/',spotifyControlle.getfeature));
