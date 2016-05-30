@@ -124,7 +124,9 @@ function *qudaoTest(req,res,next){
 
 }
 
-
+function *temp_huwei(req,res,next){
+        this.body = yield render('index')
+}
 
 app.listen(8030);
 console.log('listening on port 8030');

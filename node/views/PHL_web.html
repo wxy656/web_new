@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PHL</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+		}
+		.up{
+			height: 720px;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			background: url("images/BG.jpg") no-repeat center top;
+			background-color: #3A3A3A;
+		}
+		.menu{
+			width: 100vw;
+			display: flex;
+			flex-direction: row-reverse;
+		}
+		.menu_item{
+			margin-right: 120px;
+			margin-top: 40px;
+			margin-bottom: 82px;
+			font-family: FZLTZHK--GBK1-0;
+			font-size: 18px;
+			color: rgba(255,255,255,0.5);
+		}
+		.menu_item:hover{
+			color: rgba(255,255,255,1);
+		}
+		.main{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.web_content{
+			width: 100vw;
+			display: flex;
+			justify-content: space-between;
+		}
+		.main{
+			margin-left: 100px;
+			margin-top: 33px;
+		}
+		.title{
+			flex-grow: 0;
+			width: 299px;
+			height: 77px;
+			margin-bottom: 50px;
+		}
+		.slogan{
+			width: 672px;
+			height: 50px;
+			margin-bottom: 63px;
+		}
+		.saoma_text{
+			font-size: 18px;
+			color: #FFF;
+			margin-top: 14px;
+			margin-bottom: 44px;
+			font-family: FZLTXHK--GBK1-0;
+			font-size: 18px;
+			color: rgba(255,255,255,0.5);
+			letter-spacing: 0px;
+		}
+		.web_iOS_button{
+			margin-right: 50px;
+		}
+		.phone{
+			margin-right: 100px;
+		}
+		.phone_img{
+			width: 474px;
+			height: 692px;
+		}
+		.middle{
+			height: 474px;
+			display: flex;
+			padding-top: 100px;
+			justify-content: space-between;
+		}
+		.fenzhi{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			max-width: 317px;
+			max-height: 400px;
+		}
+		#left_item {
+			margin-left: 122px;
+		}
+		#right_item {
+			margin-right: 122px;
+		}
+		.icon{
+			width: 150px;
+			height: 150px;
+			margin-bottom: 25px;
+		}
+		.title_tag{
+			/* 个性化歌单: */
+			font-family: FZLTZHK--GBK1-0;
+			font-size: 24px;
+			color: #666666;
+			letter-spacing: 4.75px;
+			margin-bottom: 13px;
+		}
+		.content{
+			/* 基于定位技术和独有算法，精准追踪播放音乐: */
+			font-family: PingFangSC-Regular;
+			font-size: 16px;
+			color: #8A8A8A;
+			letter-spacing: 0px;
+		}
+		.foot{
+			background-color: #F4F4F4;
+			height: 190px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.two-dimension_code{
+			display: flex;
+			align-items: flex-end;
+		}
+		.two-dimension_code_img{
+			width: 100px;
+			height: 100px;
+			margin-right: 10px;
+		}
+		#left_two-dimension_code{
+			margin-left: 300px;
+		}
+		#right_two-dimension_code{
+			margin-right: 300px;
+		}
+		.text_up{
+			margin-bottom: 5px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="up">
+		<div class="menu">
+			<a class="menu_item">联系我们</a>
+			<a class="menu_item">关于我们</a>
+		</div>
+		<div class="web_content">
+			<div class="main">
+				<img class="title" src="images/title.png">
+				<img class="slogan" src="images/slogan.png">
+				<img class="download_two-dimension_code" src="images/download_two-dimension_code.png">
+				<p class="saoma_text">扫码下载app</p>
+				<div class="web_button">
+					<img class="web_iOS_button" src="images/web_iOS_button.png">
+					<img class="web_Android_button" src="images/web_Android_button.png">
+				</div>
+			</div>
+			<div class="phone">
+				<img class="phone_img" src="images/phone_imag.png">
+			</div>
+		</div>
+	</div>
+	<div class="middle">
+		<div class="fenzhi" id="left_item">
+			<img class="icon" src="images/icon_1.png">
+			<p class="title_tag">量体裁衣、多种运动参数</p>
+			<p class="content">针对不同运动类型、不同能量指标（燃值）和运动目标（距离+时间）组合编排，适用最广泛的运动场景</p>
+		</div>
+		<div class="fenzhi">
+			<img class="icon" src="images/icon_2.png">
+			<p class="title_tag">个性化歌单</p>
+			<p class="content">根据喜好及运动目标自主创建歌单，个性化推荐，探索最懂你的运动音乐</p>
+		</div>
+		<div class="fenzhi" id="right_item">
+			<img class="icon" src="images/icon_3.png">
+			<p class="title_tag">独有算法，精确追踪数据</p>
+			<p class="content">基于定位技术和独有算法，精准追踪播放音乐过程中的锻炼总时间及平均步频</p>
+		</div>
+	</div>
+	<div class="foot">
+		<div class="two-dimension_code" id="left_two-dimension_code">
+			<img class="two-dimension_code_img" src="images/weibo.png">
+			<div class="text_all">
+				<p class="text text_up">微博搜索“跑嗨乐”</p>
+				<p class="text">或扫描二维码立即关注</p>
+			</div>
+		</div>
+		<div class="two-dimension_code" id="right_two-dimension_code">
+			<img class="two-dimension_code_img" src="images/weixin.jpg">
+			<div class="text_all">
+				<p class="text text_up">微信搜索“跑嗨乐”</p>
+				<p class="text">或扫描二维码立即关注</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
