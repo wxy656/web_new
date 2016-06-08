@@ -92,7 +92,7 @@ function *zhuxingtu(req,res,next){
 
 var db_qudaoTest =mongoose.createConnection("mongodb://localhost/search_record")
 var qudaoTest_Schema = new mongoose.Schema({
-    device:String ,  qudao: String, date:Date,__v:Number
+    device:String ,  qudao: String, date:Date,version:Number
 });
 var qudaoTest_Model=db_qudaoTest.model('qudao_records', qudaoTest_Schema,'qudao_records');
 function *qudaoTest(req,res,next){
@@ -139,7 +139,7 @@ function *qudaoTest2(req,res,next){
             "date": new Date(),
             "device": "android",
             "qudao": querydata.qudao.constructor,
-            "__v":1
+            "version":1
         }).save();
         this.body=yield render('bbbb',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
@@ -149,7 +149,7 @@ function *qudaoTest2(req,res,next){
             "date": new Date(),
             "device": "ios",
             "qudao": querydata.qudao,
-            "__v":1
+            "version":1
         }).save();
         this.body=yield render('bbbb',{"tourl":url})
     }
