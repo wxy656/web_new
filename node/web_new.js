@@ -42,6 +42,7 @@ app.use(route.get('/user_log/',userLogControlle.userLog));
 app.use(route.post('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/qudaoTest/',qudaoTest));
+app.use(route.get('/qudaoTest2/',qudaoTest2));
 app.use(route.get('/temp_huwei/',temp_huwei));
 
 app.use(route.get('/backcall/',backcallControlle.backcall));
@@ -109,7 +110,7 @@ function *qudaoTest(req,res,next){
             "device": "android",
             "qudao": querydata.qudao
         }).save();
-        this.body=yield render('bbbb',{"tourl":url})
+        this.body=yield render('browse',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
     }else{
         let url="http://um0.cn/"+querydata.qudao+"?q="+new Date().getTime();
@@ -117,6 +118,38 @@ function *qudaoTest(req,res,next){
             "date": new Date(),
             "device": "ios",
             "qudao": querydata.qudao
+        }).save();
+        this.body=yield render('browse',{"tourl":url})
+    }
+
+
+
+}
+function *qudaoTest2(req,res,next){
+    this.querystring.toString().split("&");
+    let querydata={};
+    _.map(this.querystring.toString().split("&"),function(data){
+        querydata[data.split("=")[0]]=data.split("=")[1]
+    });
+    let device=querydata.device || "ios"
+    console.log(querydata.device)
+    if (device=="android"){
+        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk"+"?q="+new Date().getTime();
+        yield new qudaoTest_Model({
+            "date": new Date(),
+            "device": "android",
+            "qudao": querydata.qudao.constructor,
+            "__v":1
+        }).save();
+        this.body=yield render('bbbb',{"tourl":url})
+        //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
+    }else{
+        let url="http://um0.cn/"+querydata.qudao+"?q="+new Date().getTime();
+        yield new qudaoTest_Model({
+            "date": new Date(),
+            "device": "ios",
+            "qudao": querydata.qudao,
+            "__v":1
         }).save();
         this.body=yield render('bbbb',{"tourl":url})
     }
