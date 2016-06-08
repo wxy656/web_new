@@ -92,7 +92,7 @@ function *zhuxingtu(req,res,next){
 
 var db_qudaoTest =mongoose.createConnection("mongodb://localhost/search_record")
 var qudaoTest_Schema = new mongoose.Schema({
-    device:String ,  qudao: String, date:Date
+    device:String ,  qudao: String, date:Date,__v:Number
 });
 var qudaoTest_Model=db_qudaoTest.model('qudao_records', qudaoTest_Schema,'qudao_records');
 function *qudaoTest(req,res,next){
