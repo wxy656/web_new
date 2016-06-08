@@ -109,7 +109,7 @@ function *qudaoTest(req,res,next){
             "device": "android",
             "qudao": querydata.qudao
         }).save();
-        this.body=yield render('browse',{"tourl":url})
+        this.body=yield render('bbbb',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
     }else{
         let url="http://um0.cn/"+querydata.qudao;
@@ -118,7 +118,7 @@ function *qudaoTest(req,res,next){
             "device": "ios",
             "qudao": querydata.qudao
         }).save();
-        this.body=yield render('browse',{"tourl":url})
+        this.body=yield render('bbbb',{"tourl":url})
     }
 
 
