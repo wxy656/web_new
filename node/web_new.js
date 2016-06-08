@@ -103,7 +103,7 @@ function *qudaoTest(req,res,next){
     let device=querydata.device || "ios"
     console.log(querydata.device)
     if (device=="android"){
-        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk";
+        let url="http://o7gvbz759.bkt.clouddn.com/paohaile-"+querydata.qudao+"-release.apk"+"?q="+new Date().getTime();
         yield new qudaoTest_Model({
             "date": new Date(),
             "device": "android",
@@ -112,7 +112,7 @@ function *qudaoTest(req,res,next){
         this.body=yield render('bbbb',{"tourl":url})
         //http://o7gvbz759.bkt.clouddn.com/paohaile-fensitong1-release.apk
     }else{
-        let url="http://um0.cn/"+querydata.qudao;
+        let url="http://um0.cn/"+querydata.qudao+"?q="+new Date().getTime();
         yield new qudaoTest_Model({
             "date": new Date(),
             "device": "ios",
