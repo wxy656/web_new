@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<div id="dd" class="dd">
+    <input type="submit" onclick="getvalue({{Num}});" value="生成" />
+</div>
+
+
+</body>
+
+<SCRIPT LANGUAGE="JavaScript">
+    function getvalue(Num){
+
+        var datain="{{data}}".split(",");
+        var header="{{head}}".split(",")
+        console.log(datain[14]);
+        var sheet1=[];
+        for (k=0;k<Num;k++){
+            var sheet=[];
+            for (j=0;j<7;j++){
+                sheet.push(datain[k*7+j]);
+                console.log(datain[k*7+j]);
+            };
+            sheet1.push(sheet);
+
+        }
+        document.write('<table border="1" width="100%">');
+        var zhi=Math.ceil((Num-1)/2)
+        for(i=0;i<zhi;i++){
+            document.write("<tr>");
+            for(x=0;x<2;x++){
+                var data=header[0]+":"+sheet1[i*2+x][0] +'&nbsp;'+ header[1]+":"+sheet1[i*2+x][1]+'<br>'+'<br>'
+                        +header[2]+":"+sheet1[i*2+x][2] + '&nbsp;'+header[3]+":"+sheet1[i*2+x][3]+'<br>'+'<br>'
+                        +header[4]+":"+sheet1[i*2+x][4] +'&nbsp;'+header[5]+":"+sheet1[i*2+x][5]
+                document.write('<td style="width:50%;height:160px">'+data+'</td>');
+            }
+            document.write("</tr>");
+        }
+
+        document.write("</table>");
+    };
+
+</SCRIPT>
+</html>

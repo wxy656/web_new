@@ -13,6 +13,9 @@ let views = require('co-views');
 let serve = require('koa-static');
 let _ = require('lodash');
 let mongoose = require('mongoose');
+let xlsx=require("node-xlsx");//excel
+let bodyParse =require('co-busboy');//excel
+var fs = require("fs");//excel
 
 let render = views('./views/', {
     map: { html: 'swig' },
@@ -39,12 +42,17 @@ app.use(route.get('/songlistRadio/',songlistRadioController.songlistRadio));
 app.use(route.get('/userList/',userListController.userList));
 app.use(route.get('/user_log/',userLogControlle.userLog));
 
+//temp route
 app.use(route.post('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/qudaoTest/',qudaoTest));
 app.use(route.get('/qudaoTest2/',qudaoTest2));
 app.use(route.get('/temp_huwei/',temp_huwei));
+app.use(route.get('/excel/',excel));
+app.use(route.post('/excel/',excel));
+app.use(route.get('/excel1/',excel1));
 
+//spotify
 app.use(route.get('/backcall/',backcallControlle.backcall));
 app.use(route.get('/songFeature/',spotifyControlle.getfeature));
 app.use(route.get('/songSearch/',spotifyControlle.search));
@@ -89,6 +97,41 @@ function *zhuxingtu(req,res,next){
 
 }
 
+
+function *excel(req,res,next){
+    if (this.request.method=="GET"){
+        this.body=  yield render('excel',{})
+    }else {
+        let name="public/file/yyy.xlsx";
+         let parts =bodyParse(this,{
+             autoFields: true
+         });
+         let part;
+         //fs.unlink(name, function(){
+         //    console.log(' delete success');
+         //});
+         while (part = yield parts) {
+             var stream = fs.createWriteStream(name);
+             part.pipe(stream);
+             part.on('end', function *() {
+                 writeStream.end()
+                 console.log('uploading %s -> %s', part.filename, stream.path);
+             });
+         }
+         this.body=yield render('excel2',{})
+    }
+}
+
+function *excel1(req,res,next){
+    let name="public/file/yyy.xlsx";
+    let list = xlsx.parse(name);
+    let sheet1 = list[0].data;
+    this.body = yield render('excel1', {
+        "Num": sheet1.length,
+        "data": sheet1.slice(1, sheet1.length),
+        "head": sheet1.slice(0, 1)
+    })
+}
 
 var db_qudaoTest =mongoose.createConnection("mongodb://localhost/search_record")
 var qudaoTest_Schema = new mongoose.Schema({
