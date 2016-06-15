@@ -102,7 +102,8 @@ function *excel(req,res,next){
     if (this.request.method=="GET"){
         this.body=  yield render('excel',{})
     }else {
-        let name="public/file/yyy.xlsx";
+        let date=new Date().getTime();
+        let name="public/file/"+date+".xlsx";
          let parts =bodyParse(this,{
              autoFields: true
          });
@@ -118,12 +119,19 @@ function *excel(req,res,next){
                  console.log('uploading %s -> %s', part.filename, stream.path);
              });
          }
-         this.body=yield render('excel2',{})
+         this.body=yield render('excel2',{url:"http://localhost:8030/excel1?date="+date})
     }
 }
 
 function *excel1(req,res,next){
-    let name="public/file/yyy.xlsx";
+    this.querystring.toString().split("&");
+    let querydata={};
+    _.map(this.querystring.toString().split("&"),function(data){
+        querydata[data.split("=")[0]]=data.split("=")[1]
+    });
+
+    let name="public/file/"+querydata.date+".xlsx";
+    console.log(name)
     let list = xlsx.parse(name);
     let sheet1 = list[0].data;
     this.body = yield render('excel1', {
