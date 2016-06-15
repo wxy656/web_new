@@ -119,7 +119,7 @@ function *excel(req,res,next){
                  console.log('uploading %s -> %s', part.filename, stream.path);
              });
          }
-         this.body=yield render('excel2',{url:"http://localhost:8030/excel1?date="+date})
+         this.body=yield render('excel2',{url:"/excel1?date="+date})
     }
 }
 
