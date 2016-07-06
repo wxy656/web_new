@@ -33,7 +33,7 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 12;
-rule.minute =20;
+rule.minute =27;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
