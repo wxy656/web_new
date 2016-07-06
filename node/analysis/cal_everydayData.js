@@ -33,7 +33,7 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 12;
-rule.minute =30;
+rule.minute =33;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
@@ -60,9 +60,9 @@ module.export={
                 var listInfo = {};
                 for (var i = 0; i < records.length; i++) {
                     try {
+                        var record = records[i]
                         let device = (record.device || {}).os || "android";
                         let contentType = record.contentType || record.songList.type;
-                        var record = records[i]
                         if (record.duration >= 1200) {
                             if (contentType == "runLog" || contentType == "radio") {
                                 if (device == "android") {
