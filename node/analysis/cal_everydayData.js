@@ -33,7 +33,7 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 rule.hour = 12;
-rule.minute =27;
+rule.minute =30;
 
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
@@ -41,7 +41,7 @@ module.export={
             for (var time_end = 1466784000000; time_end <= 1467734400000;time_end += 86400000) {
                 //let today=new Date();
                 // var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
-                console.log(new Date(today));
+                console.log(new Date(time_end));
                 let records = yield runLogsModel.find({
                     "createdOn": {
                         "$gte": new Date(time_end - 86400000),
