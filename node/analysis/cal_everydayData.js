@@ -32,7 +32,7 @@ let schedule = require("node-schedule");
 var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 12;
+rule.hour = 8;
 rule.minute =33;
 
 module.export={
