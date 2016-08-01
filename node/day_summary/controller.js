@@ -38,17 +38,18 @@ module.exports = {
                 rihuo.push(record["youmeng"]["activeUser"][device]);
                 datelist.push(record.date.getFullYear()+"/"+(record.date.getMonth()+1)+"/"+record.date.getDate())
         });
-        var total=[],gte20_zhanbi=[],bte10_20_zhanbi=[],lt10_zhanbi=[],rihuozhanbi=[]
+        var total=[],gte20_zhanbi=[],gte20_rihuo_zhanbi=[],bte10_20_zhanbi=[],lt10_zhanbi=[],rihuozhanbi=[]
         for (let i=0;i<data_raws.length;i++){
             var total_elment=gte20[i]+bte10_20[i]+lt10[i];
             total.push(total_elment)
             gte20_zhanbi.push((gte20[i]/total_elment*100).toFixed(2));
+            gte20_rihuo_zhanbi.push((gte20[i]/rihuo[i]*100).toFixed(2));
             bte10_20_zhanbi.push((bte10_20[i]/total_elment*100).toFixed(2));
             lt10_zhanbi.push((lt10[i]/total_elment*100).toFixed(2));
             rihuozhanbi.push((total_elment/rihuo[i]*100).toFixed(2));
         }
 
         //console.log({"datelist":datelist,"countlist":countlist,"realcountlist":realcountlist,"zhanbilist":zhanbilist})
-        this.body = yield render('day_summary',{"datelist":datelist,"total":total,"gte20":gte20,"bte10_20":bte10_20,"lt10":lt10,"rihuo":rihuo,"gte20_zhanbi":gte20_zhanbi,"bte10_20_zhanbi":bte10_20_zhanbi,"lt10_zhanbi":lt10_zhanbi,"rihuozhanbi":rihuozhanbi})
+        this.body = yield render('day_summary',{"datelist":datelist,"total":total,"gte20":gte20,"gte20_rihuo_zhanbi":gte20_rihuo_zhanbi,"bte10_20":bte10_20,"lt10":lt10,"rihuo":rihuo,"gte20_zhanbi":gte20_zhanbi,"bte10_20_zhanbi":bte10_20_zhanbi,"lt10_zhanbi":lt10_zhanbi,"rihuozhanbi":rihuozhanbi})
     }
 }

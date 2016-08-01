@@ -67,7 +67,14 @@
                     },
                     calculable : true,
                     legend: {
-                        data:['日活数','大于20min的次数','10-20min的次数',"小于10min的次数",'20min以上占比','10-20min占比','10min以下占比','log日活比']
+                        selected: {
+                            '10-20min的次数' : false,
+                            '小于10min的次数' : false,
+                            '10-20min占比' : false,
+                            '10min以下占比' : false,
+                            '20min以上占比':false
+                        },
+                        data:['日活数','大于20min的次数','10-20min的次数',"小于10min的次数",'log日活比','20min以上占比','20min以上占日活比','10-20min占比','10min以下占比']
                     },
                     xAxis : [
                         {
@@ -174,6 +181,19 @@
                             data:function(){
                                 var serie=[];
                                 var aa =   "{{gte20_zhanbi}}".split(",");
+                                for( var i=0;i < aa.length;i++){
+                                    serie.push(aa[i]);
+                                };
+                                return serie;
+                            }()
+                        },
+                        {
+                            name:'20min以上占日活比',
+                            type:'line',
+                            yAxisIndex:1,
+                            data:function(){
+                                var serie=[];
+                                var aa =   "{{gte20_rihuo_zhanbi}}".split(",");
                                 for( var i=0;i < aa.length;i++){
                                     serie.push(aa[i]);
                                 };
