@@ -67,14 +67,14 @@ module.export={
                             if (contentType == "runLog" || contentType == "radio") {
                                 if (device == "android") {
                                     runlogs.gte20.radio.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS") {
                                     runlogs.gte20.radio.ios += 1;
                                 }
                                 ;
                             } else {
                                 if (device == "android") {
                                     runlogs.gte20.songlist.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS") {
                                     runlogs.gte20.songlist.ios += 1;
                                 }
                                 ;
@@ -86,14 +86,14 @@ module.export={
                             if (contentType == "runLog" || contentType == "radio") {
                                 if (device == "android") {
                                     runlogs.bte10_20.radio.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS"){
                                     runlogs.bte10_20.radio.ios += 1;
                                 }
                                 ;
                             } else {
                                 if (device == "android") {
                                     runlogs.bte10_20.songlist.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS"){
                                     runlogs.bte10_20.songlist.ios += 1;
                                 }
                                 ;
@@ -106,14 +106,14 @@ module.export={
                             if (contentType == "runLog" || contentType == "radio") {
                                 if (device == "android") {
                                     runlogs.lt10.radio.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS"){
                                     runlogs.lt10.radio.ios += 1;
                                 }
                                 ;
                             } else {
                                 if (device == "android") {
                                     runlogs.lt10.songlist.android += 1;
-                                } else {
+                                } else if (device == "iPhone OS"){
                                     runlogs.lt10.songlist.ios += 1;
                                 }
                                 ;
