@@ -211,12 +211,12 @@ function *qudaoTest2(req,res,next){
 }
 
 var bpmMonitor_Schema = new mongoose.Schema({
-    user:String ,  indatas: [], date:Date, step:Number,userBpm:Number
+    user:String ,  indatas: [Number], date:Date, step:Number,userBpm:Number
 });
 var bpmMonito_Model=db_qudaoTest.model('tempoRecords', bpmMonitor_Schema,'tempoRecords');
 function *temporecords(){
         let data= yield bodyParser(this);
-        console.log(data)
+        console.log(data.user)
         yield new bpmMonito_Model({
             user:data.user ,
             indatas: data.indatas,
