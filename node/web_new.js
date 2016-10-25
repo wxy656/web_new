@@ -13,9 +13,9 @@ let views = require('co-views');
 let serve = require('koa-static');
 let _ = require('lodash');
 let mongoose = require('mongoose');
-let xlsx=require("node-xlsx");//excel
-let bodyParse =require('co-busboy');//excel
-var fs = require("fs");//excel
+//let xlsx=require("node-xlsx");//excel
+//let bodyParse =require('co-busboy');//excel
+//var fs = require("fs");//excel
 
 let render = views('./views/', {
     map: { html: 'swig' },
@@ -47,10 +47,11 @@ app.use(route.post('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/zhuxingtu/',zhuxingtu));
 app.use(route.get('/qudaoTest/',qudaoTest));
 app.use(route.get('/qudaoTest2/',qudaoTest2));
-app.use(route.get('/temp_huwei/',temp_huwei));
-app.use(route.get('/excel/',excel));
-app.use(route.post('/excel/',excel));
-app.use(route.get('/excel1/',excel1));
+//app.use(route.get('/temp_huwei/',temp_huwei));
+//app.use(route.get('/excel/',excel));
+//app.use(route.post('/excel/',excel));
+//app.use(route.get('/excel1/',excel1));
+app.use(route.post('/temporecords/',temporecords));
 
 //spotify
 app.use(route.get('/backcall/',backcallControlle.backcall));
@@ -98,48 +99,48 @@ function *zhuxingtu(req,res,next){
 }
 
 
-function *excel(req,res,next){
-    if (this.request.method=="GET"){
-        this.body=  yield render('excel',{})
-    }else {
-        let date=new Date().getTime();
-        let name="public/file/"+date+".xlsx";
-         let parts =bodyParse(this,{
-             autoFields: true
-         });
-         let part;
-         //fs.unlink(name, function(){
-         //    console.log(' delete success');
-         //});
-         while (part = yield parts) {
-             var stream = fs.createWriteStream(name);
-             part.pipe(stream);
-             part.on('end', function *() {
-                 writeStream.end()
-                 console.log('uploading %s -> %s', part.filename, stream.path);
-             });
-         }
-         this.body=yield render('excel2',{url:"/excel1?date="+date})
-    }
-}
-
-function *excel1(req,res,next){
-    this.querystring.toString().split("&");
-    let querydata={};
-    _.map(this.querystring.toString().split("&"),function(data){
-        querydata[data.split("=")[0]]=data.split("=")[1]
-    });
-
-    let name="public/file/"+querydata.date+".xlsx";
-    console.log(name)
-    let list = xlsx.parse(name);
-    let sheet1 = list[0].data;
-    this.body = yield render('excel1', {
-        "Num": sheet1.length,
-        "data": sheet1.slice(1, sheet1.length),
-        "head": sheet1.slice(0, 1)
-    })
-}
+//function *excel(req,res,next){
+//    if (this.request.method=="GET"){
+//        this.body=  yield render('excel',{})
+//    }else {
+//        let date=new Date().getTime();
+//        let name="public/file/"+date+".xlsx";
+//         let parts =bodyParse(this,{
+//             autoFields: true
+//         });
+//         let part;
+//         //fs.unlink(name, function(){
+//         //    console.log(' delete success');
+//         //});
+//         while (part = yield parts) {
+//             var stream = fs.createWriteStream(name);
+//             part.pipe(stream);
+//             part.on('end', function *() {
+//                 writeStream.end()
+//                 console.log('uploading %s -> %s', part.filename, stream.path);
+//             });
+//         }
+//         this.body=yield render('excel2',{url:"/excel1?date="+date})
+//    }
+//}
+//
+//function *excel1(req,res,next){
+//    this.querystring.toString().split("&");
+//    let querydata={};
+//    _.map(this.querystring.toString().split("&"),function(data){
+//        querydata[data.split("=")[0]]=data.split("=")[1]
+//    });
+//
+//    let name="public/file/"+querydata.date+".xlsx";
+//    console.log(name)
+//    let list = xlsx.parse(name);
+//    let sheet1 = list[0].data;
+//    this.body = yield render('excel1', {
+//        "Num": sheet1.length,
+//        "data": sheet1.slice(1, sheet1.length),
+//        "head": sheet1.slice(0, 1)
+//    })
+//}
 
 var db_qudaoTest =mongoose.createConnection("mongodb://localhost/search_record")
 var qudaoTest_Schema = new mongoose.Schema({
@@ -209,15 +210,39 @@ function *qudaoTest2(req,res,next){
 
 }
 
-function *temp_huwei(req,res,next){
-    this.querystring.toString().split("&");
-    let querydata={};
-    _.map(this.querystring.toString().split("&"),function(data){
-        querydata[data.split("=")[0]]=data.split("=")[1]
-    });
-    let yemian= querydata.yemian || "index" ;
-    this.body = yield render(yemian)
+var bpmMonitor_Schema = new mongoose.Schema({
+    user:String ,  indatas: [], date:Date, step:Number,userBpm:Number
+});
+var bpmMonito_Model=db_qudaoTest.model('tempoRecords', qudaoTest_Schema,'tempoRecords');
+function *temporecords(req,res,next){
+        var data= this.request.body;
+        //console.log(form)
+        yield new bpmMonito_Model({
+            user:data.user ,
+            indatas: data.indatas,
+            date:new Date(),
+            step:data.step,
+            userBpm:data.userBpm
+    }).save();
+
+
+        this.body = "sucessece"
+    }
+
+
 }
+
+
+
+//function *temp_huwei(req,res,next){
+//    this.querystring.toString().split("&");
+//    let querydata={};
+//    _.map(this.querystring.toString().split("&"),function(data){
+//        querydata[data.split("=")[0]]=data.split("=")[1]
+//    });
+//    let yemian= querydata.yemian || "index" ;
+//    this.body = yield render(yemian)
+//}
 
 app.listen(8030);
 console.log('listening on port 8030');
