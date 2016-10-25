@@ -217,7 +217,6 @@ var bpmMonito_Model=db_qudaoTest.model('tempoRecords', bpmMonitor_Schema,'tempoR
 function *temporecords(){
         var data= yield bodyParser(this);
         console.log(data)
-        data =JSON.parse(data)
         console.log(data.user)
         yield new bpmMonito_Model({
             user:data.user ,
