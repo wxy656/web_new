@@ -215,9 +215,9 @@ var bpmMonitor_Schema = new mongoose.Schema({
 });
 var bpmMonito_Model=db_qudaoTest.model('tempoRecords', qudaoTest_Schema,'tempoRecords');
 function *temporecords(req,res,next){
-        console.log(this)
+        console.log(this);
         var data= yield bodyParser.form(this);
-        console.log(data)
+        console.log(data);
         yield new bpmMonito_Model({
             user:data.user ,
             indatas: data.indatas,
@@ -225,10 +225,8 @@ function *temporecords(req,res,next){
             step:data.step,
             userBpm:data.userBpm
     }).save();
+        this.body = "sucessece";
 
-
-        this.body = "sucessece"
-    }
 
 
 }
