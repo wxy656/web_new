@@ -215,6 +215,7 @@ var bpmMonitor_Schema = new mongoose.Schema({
 });
 var bpmMonito_Model=db_qudaoTest.model('tempoRecords', qudaoTest_Schema,'tempoRecords');
 function *temporecords(req,res,next){
+        console.log(this)
         var data= yield bodyParser.form(this);
         console.log(data)
         yield new bpmMonito_Model({
