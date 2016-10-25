@@ -214,9 +214,9 @@ var bpmMonitor_Schema = new mongoose.Schema({
     user:String ,  indatas: [], date:Date, step:Number,userBpm:Number
 });
 var bpmMonito_Model=db_qudaoTest.model('tempoRecords', qudaoTest_Schema,'tempoRecords');
-function *temporecords(req,res,next){
-        var data= this.request.body;
-        //console.log(form)
+function *temporecords(req,next){
+        var data= req.request.body;
+        console.log(data)
         yield new bpmMonito_Model({
             user:data.user ,
             indatas: data.indatas,
@@ -224,7 +224,8 @@ function *temporecords(req,res,next){
             step:data.step,
             userBpm:data.userBpm
     }).save();
-    
+
+
         this.body = "sucessece"
 }
 
