@@ -224,7 +224,7 @@ function *temporecords(){
             date:new Date(),
             step:data.step,
             userBpm:data.userBpm,
-            maxamplitude:data.amplitude
+            maxamplitude:data.amplitude || 0
     }).save();
 
 
