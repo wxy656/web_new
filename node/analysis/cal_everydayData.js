@@ -32,16 +32,16 @@ let schedule = require("node-schedule");
 var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 6;
-rule.minute =20;
+rule.hour = 8;
+rule.minute =33;
 console.log(new Date())
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
         console.log("qqqqqqqqeeee")
         co(function  *runlog() {
-            for (var time_end = 1478275200000; time_end <= 1478448000000;time_end += 86400000) {
+           // for (var time_end = 1478275200000; time_end <= 1478448000000;time_end += 86400000) {
                 let today=new Date();
-               // var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+                var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
                 console.log(new Date(time_end));
                 let records = yield runLogsModel.find({
                     "createdOn": {
@@ -188,7 +188,7 @@ module.export={
                     "top10_songlist": top10_songlist,
                     "youmeng": youmeng
                 }).save();
-            }
+           // }
 
             //yield operatingModel.insert({"date":new Date(), "runlog":runlogs});
         }).then(function() {console.log('done')});
