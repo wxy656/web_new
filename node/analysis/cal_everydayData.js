@@ -39,9 +39,9 @@ module.export={
     dingshi: schedule.scheduleJob(rule, function(){
         console.log("qqqqqqqqeeee")
         co(function  *runlog() {
-           // for (var time_end = 1478275200000; time_end <= 1478448000000;time_end += 86400000) {
+           for (var time_end =1478448000000; time_end <= 1479052800000;time_end += 86400000) {
                 let today=new Date();
-                var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
+                //var time_end=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime()
                 console.log(new Date(time_end));
                 let records = yield runLogsModel.find({
                     "createdOn": {
@@ -183,12 +183,12 @@ module.export={
                     }
                 }
                 yield new operatingModel({
-                    "date": new Date(time_end - 3600 * 10000),
+                    "date": new Date(time_end + 3600 * 6000),
                     "runlog": runlogs,
                     "top10_songlist": top10_songlist,
                     "youmeng": youmeng
                 }).save();
-           // }
+            }
 
             //yield operatingModel.insert({"date":new Date(), "runlog":runlogs});
         }).then(function() {console.log('done')});
