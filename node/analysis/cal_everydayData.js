@@ -32,8 +32,8 @@ let schedule = require("node-schedule");
 var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-rule.hour = 8;
-rule.minute =33;
+rule.hour = 11;
+rule.minute =50;
 console.log(new Date())
 module.export={
     dingshi: schedule.scheduleJob(rule, function(){
