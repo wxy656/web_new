@@ -211,7 +211,7 @@ function *qudaoTest2(req,res,next){
 }
 
 var bpmMonitor_Schema = new mongoose.Schema({
-    user:String ,  indatas: [], date:Date, step:Number,userBpm:Number,maxamplitude:Number
+    user:String ,  indatas: [], date:Date, step:Number,userBpm:Number,maxamplitude:Number,varFreq:Number
 });
 var bpmMonito_Model=db_qudaoTest.model('tempoRecords', bpmMonitor_Schema,'tempoRecords');
 function *temporecords(){
@@ -224,7 +224,9 @@ function *temporecords(){
             date:new Date(),
             step:data.step,
             userBpm:data.userBpm,
-            maxamplitude:data.amplitude || 0
+            maxamplitude:data.amplitude || 0,
+            varFreq:data.varFreq || 0,
+
     }).save();
 
 
