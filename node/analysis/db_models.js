@@ -4,7 +4,7 @@
 "use strict";
 let mongoose = require('mongoose');
 let _ = require('lodash');
-let db =mongoose.createConnection("mongodb://54.223.227.163/paohaile")
+let db =mongoose.createConnection("mongodb://localhost/paohaile")
 let Schema = mongoose.Schema;
 
 
